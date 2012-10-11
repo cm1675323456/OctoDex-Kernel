@@ -12,14 +12,19 @@ config IOSCHED_NOOP
 	  that do their own scheduling and require only minimal assistance from
 	  the kernel.
 
-config IOSCHED_DEADLINE
-	tristate "Deadline I/O scheduler"
+config IOSCHED_SIO
+	tristate "Simple I/O (SIO) scheduler"
 	default y
 	---help---
-	  The deadline I/O scheduler is simple and compact. It will provide
-	  CSCAN service with FIFO expiration of requests, switching to
-	  a new point in the service tree and doing a batch of IO from there
-	  in case of expiry.
+	  The simple I/O scheduler is based on noop, deadline, and v(r) I/O
+	  schedulers.
+
+	  This algorithm does not do any kind of sorting, as it is aimed for
+	  aleatory access devices, but it does some basic merging. We try to
+	  keep minimum overhead to achieve low latency.
+
+	  Asynchronous and synchronous requests are not treated separately, but
+	  we rely on deadlines to ensure fairness.
 
 config IOSCHED_CFQ
 	tristate "CFQ I/O scheduler"
@@ -67,8 +72,8 @@ choice
 	  Select the I/O scheduler which will be used by default for all
 	  block devices.
 
-	config DEFAULT_DEADLINE
-		bool "Deadline" if IOSCHED_DEADLINE=y
+	config DEFAULT_SIO
+		bool "SIO" if IOSCHED_SIO=y
 
 	config DEFAULT_CFQ
 		bool "CFQ" if IOSCHED_CFQ=y
@@ -90,7 +95,7 @@ endchoice
 
 config DEFAULT_IOSCHED
 	string
-	default "deadline" if DEFAULT_DEADLINE
+	default "sio" if DEFAULT_SIO
 	default "cfq" if DEFAULT_CFQ
 	default "bfq" if DEFAULT_BFQ
 	default "noop" if DEFAULT_NOOP
