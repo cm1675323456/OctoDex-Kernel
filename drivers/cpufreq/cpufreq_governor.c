@@ -105,6 +105,11 @@ void dbs_check_cpu(struct dbs_data *dbs_data, int cpu)
 		ignore_nice = cs_tuners->ignore_nice_load;
 	}
 
+<<<<<<< HEAD
+=======
+	policy = cdbs->cur_policy;
+
+>>>>>>> 1f552a8... cpufreq: ondemand: Change the calculation of target frequency
 	/* Get Absolute Load */
 	for_each_cpu(j, policy->cpus) {
 		struct cpu_dbs_info *j_cdbs;
@@ -157,6 +162,7 @@ void dbs_check_cpu(struct dbs_data *dbs_data, int cpu)
 		if (unlikely(!wall_time || wall_time < idle_time))
 			continue;
 
+<<<<<<< HEAD
 		/*
 		 * If the CPU had gone completely idle, and a task just woke up
 		 * on this CPU now, it would be unfair to calculate 'load' the
@@ -197,6 +203,9 @@ void dbs_check_cpu(struct dbs_data *dbs_data, int cpu)
 			load = 100 * (wall_time - idle_time) / wall_time;
 			j_cdbs->prev_load = load;
 		}
+=======
+		load = 100 * (wall_time - idle_time) / wall_time;
+>>>>>>> 1f552a8... cpufreq: ondemand: Change the calculation of target frequency
 
 		if (load > max_load)
 			max_load = load;
