@@ -1544,7 +1544,12 @@ static struct task_struct *copy_process(unsigned long clone_flags,
 			p->group_leader = current->group_leader;
 			list_add_tail_rcu(&p->thread_group,
 					  &p->group_leader->thread_group);
+<<<<<<< HEAD
 >>>>>>> 46d36c8... kernel/fork.c:copy_process(): unify CLONE_THREAD-or-thread_group_leader code
+=======
+			list_add_tail_rcu(&p->thread_node,
+					  &p->signal->thread_head);
+>>>>>>> 1f7dba5... introduce for_each_thread() to replace the buggy while_each_thread()
 		}
 		attach_pid(p, PIDTYPE_PID, pid);
 		nr_threads++;
