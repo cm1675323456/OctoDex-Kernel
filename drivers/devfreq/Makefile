@@ -6,3 +6,8 @@ obj-$(CONFIG_DEVFREQ_GOV_USERSPACE)	+= governor_userspace.o
 
 # DEVFREQ Drivers
 obj-$(CONFIG_ARM_EXYNOS4_BUS_DEVFREQ)	+= exynos4_bus.o
+<<<<<<< HEAD
+=======
+obj-$(CONFIG_MSM_DEVFREQ_CPUBW)		+= devfreq_cpubw.o
+obj-$(CONFIG_DEVFREQ_SIMPLE_DEV)	+= devfreq_simple_dev.o
+>>>>>>> 6af7cc0... PM / devfreq: Add devfreq driver for simple device
