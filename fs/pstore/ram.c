@@ -110,7 +110,10 @@ static int ramoops_pstore_open(struct pstore_info *psi)
 	cxt->dump_read_cnt = 0;
 	cxt->console_read_cnt = 0;
 	cxt->ftrace_read_cnt = 0;
+<<<<<<< HEAD
 	cxt->pmsg_read_cnt = 0;
+=======
+>>>>>>> 2cdadde... pstore: clarify clearing of _read_cnt in ramoops_context
 	return 0;
 }
 
