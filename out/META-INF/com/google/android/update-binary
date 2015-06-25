@@ -76,7 +76,6 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.initd)" == 1 ]; then
 fi;
 
 ui_print "Installing OctoDex kernel...";
-ui_print "Device Bricked Have Fun With Bricked Device :P";
 /sbin/sh /tmp/anykernel/anykernel.sh;
 if [ "$(cat /tmp/anykernel/exitcode)" == 1 ]; then 
   umount /system;
@@ -96,5 +95,6 @@ fi;
 
 umount /system;
 ui_print " ";
+ui_print "Device Bricked Have Fun With Bricked Device :P";
 ui_print "Done!";
 
