@@ -347,6 +347,9 @@ config CPU_FREQ_GOV_DARKNESS
 	tristate "'darkness' cpufreq governor"	
 	depends on CPU_FREQ
 
+
+endchoice
+
 config CPU_FREQ_GOV_PERFORMANCE
 	tristate "'performance' governor"
 	help
