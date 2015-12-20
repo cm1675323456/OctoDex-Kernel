@@ -32,9 +32,12 @@
 #include <linux/slab.h>
 #include <linux/kernel_stat.h>
 #include <asm/cputime.h>
+//#include <linux/touchboost.h>
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/cpufreq_interactive.h>
+
+//extern void (*set_tboost)(void);
 
 struct cpufreq_interactive_cpuinfo {
 	struct timer_list cpu_timer;
@@ -140,7 +143,7 @@ struct cpufreq_interactive_tunables {
 
 /* For cases where we have single governor instance for system */
 static struct cpufreq_interactive_tunables *common_tunables;
-
+static struct kobject *get_governor_parent_kobj(struct cpufreq_policy *policy);
 static struct attribute_group *get_sysfs_attr(void);
 
 #ifdef CONFIG_IRQ_TIME_ACCOUNTING
@@ -481,9 +484,6 @@ static void cpufreq_interactive_timer(unsigned long data)
 	if (WARN_ON_ONCE(!delta_time))
 		goto rearm;
 
-	cur = pcpu->policy->cur;
-	if (cur == 0)
-		goto rearm;
 
 #ifdef CONFIG_IRQ_TIME_ACCOUNTING
 	/*
@@ -511,7 +511,9 @@ static void cpufreq_interactive_timer(unsigned long data)
 	spin_lock_irqsave(&pcpu->target_freq_lock, flags);
 	do_div(cputime_speedadj, delta_time);
 	loadadjfreq = (unsigned int)cputime_speedadj * 100;
-
+	cur = pcpu->policy->cur;
+	if (cur == 0)
+		goto rearm;
 	cpu_load = loadadjfreq / pcpu->policy->cur;
 	tunables->boosted = tunables->boost_val || now < tunables->boostpulse_endtime;
 
@@ -751,15 +753,6 @@ static void cpufreq_interactive_boost(struct cpufreq_interactive_tunables *tunab
 
 	for_each_online_cpu(i) {
 		pcpu = &per_cpu(cpuinfo, i);
-
-		if (!down_read_trylock(&pcpu->enable_sem))
-			continue;
-		if (pcpu->governor_enabled == 0) {
-			/* CPU might have been down. Skip it */
-			up_read(&pcpu->enable_sem);
-			continue;
-		}
-
 		if (tunables != pcpu->policy->governor_data)
 			continue;
 
@@ -771,7 +764,6 @@ static void cpufreq_interactive_boost(struct cpufreq_interactive_tunables *tunab
 				ktime_to_us(ktime_get());
 			anyboost = 1;
 		}
-		spin_unlock_irqrestore(&speedchange_cpumask_lock, flags);
 
 		/*
 		 * Set floor freq and (re)start timer for when last
@@ -780,7 +772,6 @@ static void cpufreq_interactive_boost(struct cpufreq_interactive_tunables *tunab
 
 		pcpu->floor_freq = tunables->hispeed_freq;
 		pcpu->floor_validate_time = ktime_to_us(ktime_get());
-		up_read(&pcpu->enable_sem);
 		spin_unlock_irqrestore(&pcpu->target_freq_lock, flags[1]);
 	}
 
@@ -798,19 +789,11 @@ static void cpufreq_interactive_touchboost(void)
 	struct cpufreq_interactive_cpuinfo *pcpu;
 	struct cpufreq_interactive_tunables *tunables;
 
+	spin_lock_irqsave(&speedchange_cpumask_lock, flags);
 	for_each_online_cpu(i) {
 		pcpu = &per_cpu(cpuinfo, i);
-
-		if (!down_read_trylock(&pcpu->enable_sem))
-			continue;
-		if (pcpu->governor_enabled == 0) {
-			/* CPU might have been down. Skip it */
-			up_read(&pcpu->enable_sem);
-			continue;
-		}
 		tunables = pcpu->policy->governor_data;
 
-		spin_lock_irqsave(&speedchange_cpumask_lock, flags);
 	if (pcpu->target_freq < tunables->touchboost_freq) {
 			pcpu->target_freq = tunables->touchboost_freq;
 			cpumask_set_cpu(i, &speedchange_cpumask);
@@ -818,14 +801,13 @@ static void cpufreq_interactive_touchboost(void)
 					ktime_to_us(ktime_get());
 			anyboost = 1;
 		}
-		spin_unlock_irqrestore(&speedchange_cpumask_lock, flags);
-		up_read(&pcpu->enable_sem);
 	/* no need to set floor freq to touchboost freq as floor
 	freq is set only if the new_freq is more than
 	hispeed_freq which is not the case here*/
 
 	}
 
+	spin_unlock_irqrestore(&speedchange_cpumask_lock, flags);
 	if (anyboost)
 		wake_up_process(speedchange_task);
 }
@@ -934,7 +916,7 @@ static ssize_t show_target_loads(
 		ret += sprintf(buf + ret, "%u%s", tunables->target_loads[i],
 			       i & 0x1 ? ":" : " ");
 
-	ret += sprintf(buf + --ret, "\n");
+	sprintf(buf + ret - 1, "\n");
 	spin_unlock_irqrestore(&tunables->target_loads_lock, flags);
 	return ret;
 }
@@ -974,7 +956,7 @@ static ssize_t show_above_hispeed_delay(
 			       tunables->above_hispeed_delay[i],
 			       i & 0x1 ? ":" : " ");
 
-	ret += sprintf(buf + --ret, "\n");
+	sprintf(buf + ret - 1, "\n");
 	spin_unlock_irqrestore(&tunables->above_hispeed_delay_lock, flags);
 	return ret;
 }
@@ -1134,12 +1116,7 @@ static ssize_t store_boost(struct cpufreq_interactive_tunables *tunables,
 
 	tunables->boost_val = val;
 
-	if (tunables->boost_val == 2) {
-		tunables->boostpulse_endtime = ktime_to_us(ktime_get()) + 5000000;
-                trace_cpufreq_interactive_boost("pulse");
-                cpufreq_interactive_boost(tunables);
-                tunables->boost_val = 0;
-	} else if (tunables->boost_val) {
+	if (tunables->boost_val) {
 		trace_cpufreq_interactive_boost("on");
 		if (!tunables->boosted)
 			cpufreq_interactive_boost(tunables);
@@ -1194,18 +1171,11 @@ static ssize_t store_touchboostpulse(struct cpufreq_interactive_tunables
 {
 	int ret;
 	unsigned long val;
-	unsigned int i;
-	struct cpufreq_interactive_cpuinfo *pcpu;
 
 	ret = kstrtoul(buf, 0, &val);
 	if (ret < 0)
 		return ret;
 
-	for_each_online_cpu(i) {
-		pcpu = &per_cpu(cpuinfo, i);
-		if (!pcpu->governor_enabled)
-			return -EINVAL;
-	}
 	tunables->touchboostpulse_endtime = ktime_to_us(ktime_get())
 				+ tunables->touchboostpulse_duration_val;
 	trace_cpufreq_interactive_boost("pulse");
@@ -1378,16 +1348,16 @@ gov_sys_pol_attr_rw(iowait_load_threshold);
 #endif /* CONFIG_IRQ_TIME_ACCOUNTING */
 
 static struct global_attr boostpulse_gov_sys =
-	__ATTR(boostpulse, 0200, NULL, store_boostpulse_gov_sys);
+	__ATTR(boostpulse, 0222, NULL, store_boostpulse_gov_sys);
 
 static struct freq_attr boostpulse_gov_pol =
-	__ATTR(boostpulse, 0200, NULL, store_boostpulse_gov_pol);
+	__ATTR(boostpulse, 0222, NULL, store_boostpulse_gov_pol);
 
 static struct global_attr touchboostpulse_gov_sys =
-	__ATTR(touchboostpulse, 0200, NULL, store_touchboostpulse_gov_sys);
+	__ATTR(touchboostpulse, 0222, NULL, store_touchboostpulse_gov_sys);
 
 static struct freq_attr touchboostpulse_gov_pol =
-	__ATTR(touchboostpulse, 0200, NULL, store_touchboostpulse_gov_pol);
+	__ATTR(touchboostpulse, 0222, NULL, store_touchboostpulse_gov_pol);
 
 /* One Governor instance for entire system */
 static struct attribute *interactive_attributes_gov_sys[] = {
@@ -1576,7 +1546,7 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 			tunables->hispeed_freq = policy->max;
 
 		if (!tunables->touchboost_freq)
-			tunables->touchboost_freq = policy->max;
+			tunables->touchboost_freq = policy->max - 500000; //1.83GHz for 2.33GHz models, 1.33GHz for the 1.83GHz models
 		for_each_cpu(j, policy->cpus) {
 			pcpu = &per_cpu(cpuinfo, j);
 			pcpu->policy = policy;
@@ -1675,12 +1645,20 @@ static void cpufreq_interactive_nop_timer(unsigned long data)
 {
 }
 
+static struct kobject *get_governor_parent_kobj(struct cpufreq_policy *policy)
+{
+	if (have_governor_per_policy())
+		return &policy->kobj;
+	else
+		return cpufreq_global_kobject;
+}
+
 static int __init cpufreq_interactive_init(void)
 {
 	unsigned int i;
+	//set_tboost = &tboostdummy;
 	struct cpufreq_interactive_cpuinfo *pcpu;
 	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
-
 	/* Initalize per-cpu timers */
 	for_each_possible_cpu(i) {
 		pcpu = &per_cpu(cpuinfo, i);
@@ -1722,6 +1700,7 @@ static void __exit cpufreq_interactive_exit(void)
 	cpufreq_unregister_governor(&cpufreq_gov_interactive);
 	kthread_stop(speedchange_task);
 	put_task_struct(speedchange_task);
+	//set_tboost = NULL; //paranoid mode
 }
 
 module_exit(cpufreq_interactive_exit);
