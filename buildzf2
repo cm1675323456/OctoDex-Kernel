@@ -1,5 +1,7 @@
 #!/bin/bash
 clear
+echo "script made by eoghan2t7 of xda"
+printf "say thanks to him if this helped you :) \n\n"
 wmctrl -r :ACTIVE: -N "Applying Build Settings"
 NOW=$(date +"%d-%m-%Y")
 echo "Current Date : $NOW"
@@ -9,11 +11,13 @@ sleep 1
 #CONFIGS
 echo "Setting CPU Cores/Threads"
 export CPUS=`nproc`
+read -p "Enter Version Number : " s
+v='v'
 echo "Setting Version Number"
-export VER=V5
+export VER=$v$s
 echo "Setting Defconfig"
 export DEFCONFIG=cyanogenmod_zenfone2_defconfig
-echo "Setting bzImage Location For FlareM kernel By say99 Of XDA"
+echo "Setting bzImage Location For FlareM kernel By say99 Of XDA (thanks to eoghan2t7)"
 export BZIMAGE=arch/x86/boot/bzImage
 echo "Enviroment Setup Complete Now Moving To Compiling"
 
@@ -37,7 +41,10 @@ else
    sleep 1
 fi
 wmctrl -r :ACTIVE: -N "Compiling FlareM Kernel"
-make -j$CPUS
+
+#settings according to my compiler (had set it up in a ugly way :P )
+
+make ARCH=x86_64 -j$CPUS CROSS_COMPILE=x86_64-linux- 
 
 if [ -f $BZIMAGE ];
 then
@@ -50,6 +57,16 @@ else
    sleep 1
    exit 0
 fi
+clear
+#make it a bit more beautiful :P
+echo "script made by eoghan2t7 of xda"
+printf "say thanks to him if this helped you :) \n\n"
+echo "Current Date : $NOW"
+echo "Applying Build Settings"
+echo "Version Number = $VER"
+echo "cleaning previous files"
+echo "Starting Build Process"
+echo "Build complete"
 
 #Kernel Packing
 wmctrl -r :ACTIVE: -N "FlareM Kernel Packing"
