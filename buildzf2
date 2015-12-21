@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
+start=`date +%s`
 echo "script made by eoghan2t7 of xda"
 printf "say thanks to him if this helped you :) \n\n"
 wmctrl -r :ACTIVE: -N "Applying Build Settings"
@@ -62,10 +63,10 @@ clear
 echo "script made by eoghan2t7 of xda"
 printf "say thanks to him if this helped you :) \n\n"
 echo "Current Date : $NOW"
-echo "Applying Build Settings"
+echo "Applying Build Settings : done"
 echo "Version Number = $VER"
-echo "cleaning previous files"
-echo "Starting Build Process"
+echo "cleaning previous files : done"
+echo "Starting Build Process  : done"
 echo "Build complete"
 
 #Kernel Packing
@@ -81,4 +82,10 @@ sleep 1
 echo "Compiling FlareM_"$VER".zip"
 find . -type f -exec zip FlareM_"$VER".zip {} +
 nowf=$(date +"%T")
-echo "Completion Time : $nowf"
+cd ..
+make clean
+printf "\n\n zip created\n"
+end=`date +%s`
+runtime=$((end-start))
+echo "Completion Time :"
+echo "$runtime sec\n"
