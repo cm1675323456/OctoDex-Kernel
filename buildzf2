@@ -45,7 +45,7 @@ wmctrl -r :ACTIVE: -N "Compiling FlareM Kernel"
 
 #settings according to my compiler (had set it up in a ugly way :P )
 
-make ARCH=x86_64 -j$CPUS CROSS_COMPILE=x86_64-linux- 
+make ARCH=x86_64 -j$CPUS
 
 if [ -f $BZIMAGE ];
 then
