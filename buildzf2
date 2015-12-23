@@ -16,6 +16,7 @@ read -p "Enter Version Number : " s
 v='v'
 echo "Setting Version Number"
 export VER=$v$s
+sed -i '4s/.*/EXTRAVERSION = _FlareM_'$VER'/' Makefile
 echo "Setting Defconfig"
 export DEFCONFIG=cyanogenmod_zenfone2_defconfig
 echo "Setting bzImage Location For FlareM kernel By say99 Of XDA (thanks to eoghan2t7)"
