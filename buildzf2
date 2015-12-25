@@ -45,13 +45,8 @@ else
    make $DEFCONFIG
    sleep $SLEEP
 fi
-<<<<<<< HEAD
 wmctrl -r :ACTIVE: -N "Compiling OctoDex Kernel"
 make $EV -j$CPUS
-=======
-wmctrl -r :ACTIVE: -N "Compiling FlareM Kernel"
-make $EV #-j$CPUS
->>>>>>> 84ea23d... Proper Intel Power Clamp Fix ;)
 
 if [ -f $BZIMAGE ];
 then
@@ -97,3 +92,4 @@ end=`date +%s`
 runtime=$((end-start))
 echo "Completion Time :"
 echo "$runtime sec\n"
+
