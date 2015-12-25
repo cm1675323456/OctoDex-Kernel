@@ -40,6 +40,11 @@ else
    make $DEFCONFIG
    sleep 1
 fi
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> b65fb2f... add tweaked simpleondemand GPU governor
 wmctrl -r :ACTIVE: -N "Compiling FlareM Kernel"
 <<<<<<< HEAD
 make -j$CPUS
@@ -49,6 +54,22 @@ make -j$CPUS
 
 make ARCH=x86_64 -j$CPUS
 >>>>>>> 39070a3... Dont upload compiled bzImage
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+wmctrl -r :ACTIVE: -N "Compiling OctoDex Kernel"
+make $EV -j$CPUS
+=======
+wmctrl -r :ACTIVE: -N "Compiling FlareM Kernel"
+make $EV #-j$CPUS
+>>>>>>> 84ea23d... Proper Intel Power Clamp Fix ;)
+>>>>>>> 45f3966... Proper Intel Power Clamp Fix ;)
+=======
+wmctrl -r :ACTIVE: -N "Compiling OctoDex Kernel"
+make $EV -j$CPUS
+>>>>>>> 327f311... add tweaked simpleondemand GPU governor
+>>>>>>> b65fb2f... add tweaked simpleondemand GPU governor
 
 if [ -f $BZIMAGE ];
 then
@@ -87,4 +108,8 @@ end=`date +%s`
 runtime=$((end-start))
 echo "Completion Time :"
 echo "$runtime sec\n"
+<<<<<<< HEAD
 >>>>>>> 528b5d6... Remove bzImage pt.2
+=======
+
+>>>>>>> 327f311... add tweaked simpleondemand GPU governor
