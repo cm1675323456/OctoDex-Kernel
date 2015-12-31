@@ -12,10 +12,8 @@ sleep 1
 #CONFIGS
 echo "Setting CPU Cores/Threads"
 export CPUS=`nproc`
-read -p "Enter Version Number : " s
-v='v'
 echo "Setting Version Number"
-export VER=$v$s
+export VER=$1
 sed -i '4s/.*/EXTRAVERSION = _FlareM_'$VER'/' Makefile
 echo "Setting Defconfig"
 export DEFCONFIG=cyanogenmod_zenfone2_defconfig
