@@ -76,6 +76,12 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactiveX' governor for latency-sensitive workloads.
 
+config CPU_FREQ_DEFAULT_GOV_SMARTMAX
+	bool "smartmax"
+	select CPU_FREQ_GOV_SMARTMAX
+	help
+	  Use the CPUFreq governor 'smartmax' as default.
+
 config CPU_FREQ_DEFAULT_GOV_BIOSHOCK
 	bool "BioShock"
 	select CPU_FREQ_GOV_BIOSHOCK
@@ -190,6 +196,14 @@ config CPU_FREQ_GOV_INTERACTIVEX
 	tristate "'interactiveX' cpufreq policy governor"
 	help
 	  'interactiveX' - Modified version of interactive with sleep+wake code.
+
+config CPU_FREQ_GOV_SMARTMAX
+	tristate "'smartmax' cpufreq governor"
+	depends on CPU_FREQ
+	help
+	  'smartmax' -  based on "ondemand" and "smartassv2" optimized governor!
+
+	   If in doubt, say N.
 
 config CPU_FREQ_GOV_CONSERVATIVEX
 	tristate "'conservativeX' cpufreq policy governor"
