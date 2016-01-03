@@ -14,7 +14,8 @@ echo "Setting CPU Cores/Threads"
 export CPUS=`nproc`
 echo "Setting Version Number"
 export VER=$1
-sed -i '4s/.*/EXTRAVERSION = _FlareM_'$VER'/' Makefile
+echo "Setting Extra Version"
+export EV=EXTRAVERSION=_FlareM_$1
 echo "Setting Defconfig"
 export DEFCONFIG=cyanogenmod_zenfone2_defconfig
 echo "Setting bzImage Location For FlareM kernel By say99 Of XDA (thanks to eoghan2t7)"
@@ -41,10 +42,7 @@ else
    sleep 1
 fi
 wmctrl -r :ACTIVE: -N "Compiling FlareM Kernel"
-
-#settings according to my compiler (had set it up in a ugly way :P )
-
-make ARCH=x86_64 -j$CPUS
+make $EV -j$CPUS
 
 if [ -f $BZIMAGE ];
 then
