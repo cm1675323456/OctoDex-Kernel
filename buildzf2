@@ -82,6 +82,9 @@ nowf=$(date +"%T")
 cd ..
 make clean
 printf "\n\n zip created\n"
+rm out/bzImage
+printf "cleaned files"
+printf "\n\nzip created\n"
 end=`date +%s`
 runtime=$((end-start))
 echo "Completion Time :"
