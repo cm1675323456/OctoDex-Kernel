@@ -71,4 +71,17 @@ sleep 1
 echo "Compiling FlareM_"$VER".zip"
 find . -type f -exec zip FlareM_"$VER".zip {} +
 nowf=$(date +"%T")
+<<<<<<< HEAD
 echo "Completion Time : $nowf"
+=======
+cd ..
+make clean
+printf "\n\n zip created\n"
+rm out/bzImage
+printf "cleaned files"
+printf "\n\nzip created\n"
+end=`date +%s`
+runtime=$((end-start))
+echo "Completion Time :"
+echo "$runtime sec\n"
+>>>>>>> 528b5d6... Remove bzImage pt.2
