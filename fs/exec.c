@@ -1271,6 +1271,8 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 	unsigned int mode;
 	uid_t uid;
 	gid_t gid;
+	kuid_t uid;
+	kgid_t gid;
 
 	/* clear any previous set[ug]id data from a previous binary */
 	bprm->cred->euid = current_euid();
@@ -1280,6 +1282,10 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 		return;
 
 	inode = bprm->file->f_path.dentry->d_inode;
+	if (current->no_new_privs)
+		return;
+
+	inode = file_inode(bprm->file);
 	mode = ACCESS_ONCE(inode->i_mode);
 	if (!(mode & (S_ISUID|S_ISGID)))
 		return;
@@ -1292,6 +1298,11 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 	uid = inode->i_uid;
 	gid = inode->i_gid;
 	mutex_unlock(&inode->i_mutex);
+
+	/* We ignore suid/sgid if there are no mappings for them in the ns */
+	if (!kuid_has_mapping(bprm->cred->user_ns, uid) ||
+		 !kgid_has_mapping(bprm->cred->user_ns, gid))
+		return;
 
 	if (mode & S_ISUID) {
 		bprm->per_clear |= PER_CLEAR_ON_SETID;
