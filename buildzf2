@@ -7,9 +7,10 @@ wmctrl -r :ACTIVE: -N "Applying Build Settings"
 NOW=$(date +"%d-%m-%Y")
 echo "Current Date : $NOW"
 echo "Applying Build Settings"
-sleep 1
+
 
 #CONFIGS
+export SLEEP=1
 echo "Setting CPU Cores/Threads"
 export CPUS=`nproc`
 echo "Setting Version Number"
@@ -26,20 +27,22 @@ echo "Enviroment Setup Complete Now Moving To Compiling"
 echo "Cleaning Out Compiled Files"
 sleep 1
 make clean
+sleep $SLEEP
+#make clean
 wmctrl -r :ACTIVE: -N "Starting Build Process"
 echo "Starting Build Process"
 export USE_CCACHE=1
-sleep 1
+sleep $SLEEP
 if [ -f .config ];
 then
    echo ".config exists"
    echo "Continuing To Compiler"
-   sleep 1
+   sleep $SLEEP
 else
    echo ".config Does Not Exists"
    echo "Compiling From $DEFCONFIG"
    make $DEFCONFIG
-   sleep 1
+   sleep $SLEEP
 fi
 wmctrl -r :ACTIVE: -N "Compiling FlareM Kernel"
 make $EV -j$CPUS
@@ -48,11 +51,11 @@ if [ -f $BZIMAGE ];
 then
    echo "$BZIMAGE exists"
    echo "Compile Complete Continuing To Packing"
-   sleep 1
+   sleep $SLEEP
 else
    echo "$BZIMAGE Does Not Exists Please Check For Compile Errors"
    echo "Now exiting script"
-   sleep 1
+   sleep $SLEEP
    exit 0
 fi
 clear
@@ -72,10 +75,10 @@ echo "Starting Packing To Recovery Flashable Zip"
 cd out/
 echo "Removing Old Files"
 rm -rf bzImage *.zip
-sleep 1
+sleep $SLEEP
 echo "Copying bzImage"
 mv ../arch/x86/boot/bzImage bzImage
-sleep 1
+sleep $SLEEP
 echo "Compiling FlareM_"$VER".zip"
 find . -type f -exec zip FlareM_"$VER".zip {} +
 nowf=$(date +"%T")
