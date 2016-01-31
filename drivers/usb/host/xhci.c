@@ -4989,11 +4989,17 @@ static int __init xhci_hcd_init(void)
 {
 	int retval;
 
+<<<<<<< HEAD
 	retval = xhci_register_ush_pci();
 	if (retval < 0) {
 		printk(KERN_DEBUG "Problem registering USH PCI driver.");
 		return retval;
 	}
+=======
+	if (usb_disabled())
+		return -ENODEV;
+
+>>>>>>> 12c1515... xhci: fix placement of call to usb_disabled()
 	retval = xhci_register_pci();
 	if (retval < 0) {
 		printk(KERN_DEBUG "Problem registering PCI driver.");
@@ -5021,9 +5027,6 @@ static int __init xhci_hcd_init(void)
 	BUILD_BUG_ON(sizeof(struct xhci_intr_reg) != 8*32/8);
 	/* xhci_run_regs has eight fields and embeds 128 xhci_intr_regs */
 	BUILD_BUG_ON(sizeof(struct xhci_run_regs) != (8+8*128)*32/8);
-
-	if (usb_disabled())
-		return -ENODEV;
 
 	return 0;
 unreg_pci:
