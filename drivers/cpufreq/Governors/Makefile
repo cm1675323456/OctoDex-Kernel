@@ -50,4 +50,9 @@ obj-$(CONFIG_CPU_FREQ_GOV_SMARTASSH3)	         += cpufreq_smartassH3.o
 obj-$(CONFIG_CPU_FREQ_GOV_YANKACTIVE)	         += cpufreq_yankactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_THESSJACTIVE)	         += cpufreq_thessjactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_SMARTASS2)             += cpufreq_smartass2.o 
+<<<<<<< HEAD
 >>>>>>> dcc88ee... Add Smartass2
+=======
+obj-$(CONFIG_CPU_FREQ_GOV_HOTPLUG)	         += cpufreq_hotplug.o
+obj-$(CONFIG_CPU_FREQ_GOV_HYBRID)	         += cpufreq_hybrid.o
+>>>>>>> b8a48e8... Add hybrid and hotplug CPU governors [credits obviously to their authors]
