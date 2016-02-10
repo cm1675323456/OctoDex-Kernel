@@ -214,14 +214,14 @@ EXPORT_SYMBOL_GPL(dbs_check_cpu);
 
 void gov_add_timers(struct cpufreq_policy *policy, unsigned int delay)
 {
-	struct dbs_data *dbs_data = policy->governor_data;
-	struct cpu_dbs_info *cdbs;
-	int cpu;
+	struct cpu_dbs_common_info *cdbs = dbs_data->cdata->get_cpu_cdbs(cpu);
 
-	for_each_cpu(cpu, policy->cpus) {
-		cdbs = dbs_data->cdata->get_cpu_cdbs(cpu);
-		cdbs->timer.expires = jiffies + delay;
-		add_timer_on(&cdbs->timer, cpu);
+	mod_delayed_work_on(cpu, system_wq, &cdbs->work, delay);
+}
+
+void gov_queue_work(struct dbs_data *dbs_data, struct cpufreq_policy *policy,
+		unsigned int delay, bool all_cpus)
+{
 	int i;
 
 	if (!policy->governor_enabled)
