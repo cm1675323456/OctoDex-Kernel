@@ -42,6 +42,12 @@
 /* Mark a function definition as prohibited from being cloned. */
 #define __noclone	__attribute__((__noclone__))
 
+<<<<<<< HEAD
+=======
+/* Avoid reordering a top level statement */
+#define __noreorder	__attribute__((no_reorder))
+
+>>>>>>> 8f74793... lto: Add __noreorder and mark initcalls __noreorder
 /*
  * Tell the optimizer that something else uses this function or variable.
  */
