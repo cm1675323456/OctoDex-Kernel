@@ -188,6 +188,7 @@ config CPU_FREQ_DEFAULT_GOV_BLUACTIVE
 	help
 	Use the CPUFreq governor 'bluactive' as default.
 
+<<<<<<< HEAD
 config CPU_FREQ_DEFAULT_GOV_INTEL
 	bool "intel"
 	select CPU_FREQ_GOV_INTEL
@@ -197,6 +198,12 @@ config CPU_FREQ_DEFAULT_GOV_INTEL
 	  loading your cpufreq low-level hardware driver, using the
 	  'intel' governor for better perfromance and power with Intel
 	  mobile platforms.
+=======
+config CPU_FREQ_DEFAULT_GOV_SMARTASSH3
+  	bool "smartassH3"
+  	select CPU_FREQ_GOV_SMARTASSH3
+  	help
+>>>>>>> a0a576c... Add smartassH3 cpu governor
 
 endchoice
 
@@ -358,6 +365,7 @@ config CPU_FREQ_GOV_BLUACTIVE
 	help
 	  'bluactive' - less aggressive version of conservative
 
+<<<<<<< HEAD
 config CPU_FREQ_GOV_INTEL
 	tristate "'intel' cpufreq policy governor"
 	help
@@ -377,6 +385,13 @@ config CPU_FREQ_GOV_INTEL
 	  If in doubt, say N.
 
 
+=======
+config CPU_FREQ_GOV_SMARTASSH3
+  	tristate "'smartassH3' cpufreq governor"
+  	depends on CPU_FREQ
+  	help
+    	'smartassH3' - a "smart" governor
+>>>>>>> a0a576c... Add smartassH3 cpu governor
 
 config GENERIC_CPUFREQ_CPU0
 	tristate "Generic CPU0 cpufreq driver"
