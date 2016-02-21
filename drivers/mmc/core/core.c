@@ -404,7 +404,6 @@ EXPORT_SYMBOL(mmc_start_bkops);
  */
 static void mmc_wait_data_done(struct mmc_request *mrq)
 {
-<<<<<<< HEAD
 	unsigned long flags;
 	struct mmc_context_info *context_info = &mrq->host->context_info;
 
@@ -412,12 +411,6 @@ static void mmc_wait_data_done(struct mmc_request *mrq)
 	mrq->host->context_info.is_done_rcv = true;
 	wake_up_interruptible(&mrq->host->context_info.wait);
 	spin_unlock_irqrestore(&context_info->lock, flags);
-=======
-	struct mmc_context_info *context_info = &mrq->host->context_info;
-
-	context_info->is_done_rcv = true;
-	wake_up_interruptible(&context_info->wait);
->>>>>>> ab7a4b4... mmc: core: fix race condition in mmc_wait_data_done
 }
 
 static void mmc_wait_done(struct mmc_request *mrq)

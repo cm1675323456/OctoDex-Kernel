@@ -2057,17 +2057,11 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 			break;
 		case MMC_BLK_CMD_ERR:
 			ret = mmc_blk_cmd_err(md, card, brq, req, ret);
-<<<<<<< HEAD
-			if (!mmc_blk_reset(md, card->host, type))
-				goto start_new_req;
-			goto cmd_abort;
-=======
 			if (mmc_blk_reset(md, card->host, type))
 				goto cmd_abort;
 			if (!ret)
 				goto start_new_req;
 			break;
->>>>>>> 21dd5b3... mmc: card: Fixup request missing in mmc_blk_issue_rw_rq
 		case MMC_BLK_RETRY:
 			if (retry++ < 5)
 				break;

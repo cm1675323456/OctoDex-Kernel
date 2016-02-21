@@ -320,17 +320,10 @@ int pstore_mkfile(enum pstore_type_id type, char *psname, u64 id, int count,
 			  psname, id);
 		break;
 	case PSTORE_TYPE_CONSOLE:
-<<<<<<< HEAD
-		scnprintf(name, sizeof(name), "console-%s", psname);
+		scnprintf(name, sizeof(name),"console-%s-%lld", psname, id);
 		break;
 	case PSTORE_TYPE_FTRACE:
-		scnprintf(name, sizeof(name), "ftrace-%s", psname);
-=======
-		sprintf(name, "console-%s-%lld", psname, id);
-		break;
-	case PSTORE_TYPE_FTRACE:
-		sprintf(name, "ftrace-%s-%lld", psname, id);
->>>>>>> 7d10f54... pstore: Fix duplicate {console,ftrace}-efi entries
+		scnprintf(name, sizeof(name), "ftrace-%s-%lld", psname, id);
 		break;
 	case PSTORE_TYPE_MCE:
 		scnprintf(name, sizeof(name), "mce-%s-%lld", psname, id);

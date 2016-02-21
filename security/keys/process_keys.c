@@ -792,11 +792,7 @@ long join_session_keyring(const char *name)
 		ret = PTR_ERR(keyring);
 		goto error2;
 	} else if (keyring == new->session_keyring) {
-<<<<<<< HEAD
                 key_put(keyring);
-=======
-		key_put(keyring);
->>>>>>> 84de97f... KEYS: Fix keyring ref leak in join_session_keyring()
 		ret = 0;
 		goto error2;
 	}

@@ -105,11 +105,6 @@ void dbs_check_cpu(struct dbs_data *dbs_data, int cpu)
 		ignore_nice = cs_tuners->ignore_nice_load;
 	}
 
-<<<<<<< HEAD
-=======
-	policy = cdbs->cur_policy;
-
->>>>>>> 1f552a8... cpufreq: ondemand: Change the calculation of target frequency
 	/* Get Absolute Load */
 	for_each_cpu(j, policy->cpus) {
 		struct cpu_dbs_info *j_cdbs;
@@ -162,7 +157,6 @@ void dbs_check_cpu(struct dbs_data *dbs_data, int cpu)
 		if (unlikely(!wall_time || wall_time < idle_time))
 			continue;
 
-<<<<<<< HEAD
 		/*
 		 * If the CPU had gone completely idle, and a task just woke up
 		 * on this CPU now, it would be unfair to calculate 'load' the
@@ -203,9 +197,6 @@ void dbs_check_cpu(struct dbs_data *dbs_data, int cpu)
 			load = 100 * (wall_time - idle_time) / wall_time;
 			j_cdbs->prev_load = load;
 		}
-=======
-		load = 100 * (wall_time - idle_time) / wall_time;
->>>>>>> 1f552a8... cpufreq: ondemand: Change the calculation of target frequency
 
 		if (load > max_load)
 			max_load = load;
@@ -223,7 +214,6 @@ EXPORT_SYMBOL_GPL(dbs_check_cpu);
 
 void gov_add_timers(struct cpufreq_policy *policy, unsigned int delay)
 {
-<<<<<<< HEAD
 	struct dbs_data *dbs_data = policy->governor_data;
 	struct cpu_dbs_info *cdbs;
 	int cpu;
@@ -232,18 +222,6 @@ void gov_add_timers(struct cpufreq_policy *policy, unsigned int delay)
 		cdbs = dbs_data->cdata->get_cpu_cdbs(cpu);
 		cdbs->timer.expires = jiffies + delay;
 		add_timer_on(&cdbs->timer, cpu);
-=======
-	int i;
-
-	if (!policy->governor_enabled)
-		return;
-
-	if (!all_cpus) {
-		__gov_queue_work(smp_processor_id(), dbs_data, delay);
-	} else {
-		for_each_cpu(i, policy->cpus)
-			__gov_queue_work(i, dbs_data, delay);
->>>>>>> 27ab528... cpufreq: Fix timer/workqueue corruption due to double queueing
 	}
 }
 EXPORT_SYMBOL_GPL(gov_add_timers);

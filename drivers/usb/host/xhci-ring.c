@@ -1717,7 +1717,6 @@ static void handle_port_status(struct xhci_hcd *xhci,
 		usb_hcd_resume_root_hub(hcd);
 	}
 
-<<<<<<< HEAD
 	/* Some xHC will generate PLC event during compliance test.
 	 * To avoid break compliance test, ignore this interrupt. */
 	if ((xhci->quirks & XHCI_COMP_PLC_QUIRK) &&
@@ -1727,10 +1726,9 @@ static void handle_port_status(struct xhci_hcd *xhci,
 				faked_port_index, PORT_PLC);
 		return 0;
 	}
-=======
+
 	if (hcd->speed == HCD_USB3 && (temp & PORT_PLS_MASK) == XDEV_INACTIVE)
 		bus_state->port_remote_wakeup &= ~(1 << faked_port_index);
->>>>>>> 5eeb26f... xhci: prevent bus_suspend if SS port resuming in phase 1
 
 	if ((temp & PORT_PLC) && (temp & PORT_PLS_MASK) == XDEV_RESUME) {
 		xhci_dbg(xhci, "port resume event for port %d\n", port_id);

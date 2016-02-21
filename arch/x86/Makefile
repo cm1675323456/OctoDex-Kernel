@@ -31,18 +31,8 @@ ifeq ($(CONFIG_X86_32),y)
 
         KBUILD_CFLAGS += -msoft-float -mregparm=3 -freg-struct-return
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         # Don't autogenerate MMX or SSE instructions
         KBUILD_CFLAGS += -mno-mmx -mno-sse
-=======
-        # Don't autogenerate SSE instructions
-	KBUILD_CFLAGS += -mno-sse
->>>>>>> d92fb83... x86-64, build: Always pass in -mno-sse
-=======
-        # Don't autogenerate MMX or SSE instructions
-        KBUILD_CFLAGS += -mno-mmx -mno-sse
->>>>>>> 8359c9f... x86, build: Pass in additional -mno-mmx, -mno-sse options
 
         # Never want PIC in a 32-bit kernel, prevent breakage with GCC built
         # with nonstandard options
@@ -70,18 +60,8 @@ else
         KBUILD_AFLAGS += -m64
         KBUILD_CFLAGS += -m64 -fno-pic
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         # Don't autogenerate MMX or SSE instructions
         KBUILD_CFLAGS += -mno-mmx -mno-sse
-=======
-        # Don't autogenerate SSE instructions
-	KBUILD_CFLAGS += -mno-sse
->>>>>>> d92fb83... x86-64, build: Always pass in -mno-sse
-=======
-        # Don't autogenerate MMX or SSE instructions
-        KBUILD_CFLAGS += -mno-mmx -mno-sse
->>>>>>> 8359c9f... x86, build: Pass in additional -mno-mmx, -mno-sse options
 
 	# Use -mpreferred-stack-boundary=3 if supported.
 	KBUILD_CFLAGS += $(call cc-option,-mpreferred-stack-boundary=3)

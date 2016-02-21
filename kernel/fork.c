@@ -569,6 +569,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p)
 	mm->cached_hole_size = ~0UL;
 	mm_init_aio(mm);
 	mm_init_owner(mm, p);
+	clear_tlb_flush_pending(mm);
 
 	if (likely(!mm_alloc_pgd(mm))) {
 		mm->def_flags = 0;
@@ -1534,23 +1535,15 @@ static struct task_struct *copy_process(unsigned long clone_flags,
 			list_add_tail_rcu(&p->tasks, &init_task.tasks);
 			__this_cpu_inc(process_counts);
 		} else {
-<<<<<<< HEAD
-			list_add_tail_rcu(&p->thread_node,
-					  &p->signal->thread_head);
-=======
 			current->signal->nr_threads++;
 			atomic_inc(&current->signal->live);
 			atomic_inc(&current->signal->sigcnt);
 			p->group_leader = current->group_leader;
 			list_add_tail_rcu(&p->thread_group,
 					  &p->group_leader->thread_group);
-<<<<<<< HEAD
->>>>>>> 46d36c8... kernel/fork.c:copy_process(): unify CLONE_THREAD-or-thread_group_leader code
-=======
 			list_add_tail_rcu(&p->thread_node,
 					  &p->signal->thread_head);
->>>>>>> 1f7dba5... introduce for_each_thread() to replace the buggy while_each_thread()
-		}
+ 		}
 		attach_pid(p, PIDTYPE_PID, pid);
 		nr_threads++;
 	}
