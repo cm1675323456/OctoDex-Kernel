@@ -17,23 +17,6 @@ echo "Setting Version Number"
 export VER=$1
 echo "Setting Extra Version"
 export EV=EXTRAVERSION=_FlareM_v$1
-if [ -z "$2" ]
-  then
-    OC="2"
-    echo "OC Not enabled"
-else
-   OC=$2
-fi
-if [ -n "$2" ]
-then
- if [ $OC == 1 ]
-  then
-   echo "OC enabled"
-   sed -i '101s/.*/#define CPU_ATOM_OVERCLOCK/' drivers/cpufreq/sfi-cpufreq.c
-  else
-   echo "OC Not enabled"
-fi
-fi
 echo "Setting Defconfig"
 export DEFCONFIG=cyanogenmod_zenfone2_defconfig
 echo "Setting bzImage Location For FlareM kernel By say99 Of XDA (thanks to eoghan2t7)"
@@ -105,11 +88,6 @@ printf "\n\n zip created\n"
 rm out/bzImage
 printf "cleaned files"
 printf "\n\nzip created\n"
-if [ $OC == 1 ]
-then
- echo "OC disabled"
- sed -i '101s|.*|//#define CPU_ATOM_OVERCLOCK|g' drivers/cpufreq/sfi-cpufreq.c
-fi
 end=`date +%s`
 runtime=$((end-start))
 echo "Completion Time :"
