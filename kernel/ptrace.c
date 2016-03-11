@@ -230,8 +230,6 @@ static int __ptrace_may_access(struct task_struct *task, unsigned int mode)
 {
 	const struct cred *cred = current_cred(), *tcred;
 	int dumpable = 0;
-<<<<<<< HEAD
-=======
 	kuid_t caller_uid;
 	kgid_t caller_gid;
 
@@ -239,7 +237,6 @@ static int __ptrace_may_access(struct task_struct *task, unsigned int mode)
 		WARN(1, "denying ptrace access check without PTRACE_MODE_*CREDS\n");
 		return -EPERM;
 	}
->>>>>>> 414f6fb... ptrace: use fsuid, fsgid, effective creds for fs access checks
 
 	if (ptrace_can_access)
 		return 0;
@@ -251,10 +248,7 @@ static int __ptrace_may_access(struct task_struct *task, unsigned int mode)
 	 * because setting up the necessary parent/child relationship
 	 * or halting the specified task is impossible.
 	 */
-<<<<<<< HEAD
-=======
 
->>>>>>> 414f6fb... ptrace: use fsuid, fsgid, effective creds for fs access checks
 	/* Don't let security modules deny introspection */
 	if (same_thread_group(task, current))
 		return 0;

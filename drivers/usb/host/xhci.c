@@ -4991,17 +4991,15 @@ static int __init xhci_hcd_init(void)
 {
 	int retval;
 
-<<<<<<< HEAD
+	if (usb_disabled())
+		return -ENODEV;
+
 	retval = xhci_register_ush_pci();
 	if (retval < 0) {
 		printk(KERN_DEBUG "Problem registering USH PCI driver.");
 		return retval;
 	}
-=======
-	if (usb_disabled())
-		return -ENODEV;
 
->>>>>>> 12c1515... xhci: fix placement of call to usb_disabled()
 	retval = xhci_register_pci();
 	if (retval < 0) {
 		printk(KERN_DEBUG "Problem registering PCI driver.");

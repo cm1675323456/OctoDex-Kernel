@@ -554,11 +554,8 @@ EXPORT_SYMBOL_GPL(intel_scu_ipc_msic_vprog3);
 
 static int scu_reg_access(u32 cmd, struct scu_ipc_data  *data)
 {
-<<<<<<< HEAD
 	int ret;
-=======
 	unsigned int count = data->count;
->>>>>>> 08fc7d3... intel_scu_ipcutil: underflow in scu_reg_access()
 
 	if (data->count == 0 || data->count > 5)
 		return -EINVAL;
