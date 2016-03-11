@@ -14,7 +14,7 @@ export SLEEP=1
 echo "Setting CPU Cores/Threads"
 export CPUS=`nproc`
 echo "Setting Version Number"
-export VER=$1
+export VER=v$1
 echo "Setting Extra Version"
 export EV=EXTRAVERSION=_FlareM_v$1
 echo "Setting Defconfig"
