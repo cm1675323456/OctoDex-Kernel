@@ -31,8 +31,8 @@
  *  frequency control will be added later.  For now, only thermal
  *  conditions and sysfs file inputs are taken into account.
  *
- *  This driver currently only allows frequencies between 200MHz and
- *  533 MHz.
+ *  This driver currently only allows frequencies between 166MHz and
+ *  640 MHz.
  *
  *  This driver observes the limits set by the values in:
  *
@@ -47,7 +47,7 @@
  *  at 400 MHz and higher.
  *
  *  While the driver is informed that a thermal condition exists, it
- *  reduces the gpu frequency to 200 MHz.
+ *  reduces the gpu frequency to 166 MHz.
  *
  *  Temporary:
  *      No use of performance counters.
@@ -566,11 +566,14 @@ static int tcd_get_force_state_override(struct thermal_cooling_device *tcd,
 	struct busfreq_data *bfdata = (struct busfreq_data *) tcd->devdata;
 
 	return scnprintf(buf, PAGE_SIZE,
-			"%lu %lu %lu %lu\n",
+			"%lu %lu %lu %lu %lu %lu %lu\n",
 			bfdata->gpudata[0].freq_limit,
 			bfdata->gpudata[1].freq_limit,
 			bfdata->gpudata[2].freq_limit,
-			bfdata->gpudata[3].freq_limit);
+			bfdata->gpudata[3].freq_limit,
+			bfdata->gpudata[4].freq_limit,
+			bfdata->gpudata[5].freq_limit,
+			bfdata->gpudata[6].freq_limit);
 }
 
 /**
@@ -592,20 +595,26 @@ static int tcd_set_force_state_override(struct thermal_cooling_device *tcd,
 	int i = 0;
 
 	if (is_tng_a0)
-		prev_freq = DFRGX_FREQ_320_MHZ;
+		prev_freq = DFRGX_FREQ_266_MHZ;
 	if (df_rgx_is_max_fuse_set())
 		prev_freq = DFRGX_FREQ_640_MHZ;
 
-	sscanf(buf, "%lu %lu %lu %lu\n", &freqs[0],
+	sscanf(buf, "%lu %lu %lu %lu %lu %lu %lu\n", &freqs[0],
 			 &freqs[1],
 			 &freqs[2],
-			 &freqs[3]);
+			 &freqs[3],
+			 &freqs[4],
+			 &freqs[5],
+			 &freqs[6]);
 
-	DFRGX_DPF(DFRGX_DEBUG_HIGH, "%s values: %lu %lu %lu %lu\n", __func__,
+	DFRGX_DPF(DFRGX_DEBUG_HIGH, "%s values: %lu %lu %lu %lu %lu %lu %lu\n", __func__,
 			freqs[0],
 			freqs[1],
 			freqs[2],
-			freqs[3]);
+			freqs[3],
+			freqs[4],
+			freqs[5],
+			freqs[6]);
 
 	for (i = 0; (i < THERMAL_COOLING_DEVICE_MAX_STATE) &&
 				df_rgx_is_valid_freq(freqs[i]) &&
@@ -753,10 +762,13 @@ static int df_rgx_busfreq_probe(struct platform_device *pdev)
 	//if (df_rgx_is_max_fuse_set())
 	//bfdata->gpudata[0].freq_limit = DFRGX_FREQ_640_MHZ;
 	//else
-	bfdata->gpudata[0].freq_limit = DFRGX_FREQ_533_MHZ;
-	bfdata->gpudata[1].freq_limit = DFRGX_FREQ_457_MHZ;
-	bfdata->gpudata[2].freq_limit = DFRGX_FREQ_320_MHZ;
-	bfdata->gpudata[3].freq_limit = DFRGX_FREQ_200_MHZ;
+	bfdata->gpudata[0].freq_limit = DFRGX_FREQ_640_MHZ;
+	bfdata->gpudata[1].freq_limit = DFRGX_FREQ_533_MHZ;
+	bfdata->gpudata[2].freq_limit = DFRGX_FREQ_457_MHZ;
+	bfdata->gpudata[3].freq_limit = DFRGX_FREQ_320_MHZ;
+	bfdata->gpudata[4].freq_limit = DFRGX_FREQ_266_MHZ;
+	bfdata->gpudata[5].freq_limit = DFRGX_FREQ_200_MHZ;
+	bfdata->gpudata[6].freq_limit = DFRGX_FREQ_166_MHZ;
 
 
 	df_rgx_init_available_freq_table(dev);
