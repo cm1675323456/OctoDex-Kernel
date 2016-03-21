@@ -42,7 +42,7 @@
 #define NUMBER_OF_LEVELS_TNG_A0			4
 #define NUMBER_OF_LEVELS_MAX_FUSE		9
 
-#define DF_RGX_FREQ_KHZ_MIN             166000
+#define DF_RGX_FREQ_KHZ_MIN             200000
 #define DF_RGX_FREQ_KHZ_MAX             640000
 
 #define DF_RGX_FREQ_KHZ_MIN_INITIAL     DF_RGX_FREQ_KHZ_MIN
@@ -52,7 +52,6 @@
 #define DF_RGX_THERMAL_LIMITED_FREQ_KHZ 200000
 
 typedef enum _DFRGX_FREQ_ {
-	DFRGX_FREQ_166_MHZ = 166000,
 	DFRGX_FREQ_200_MHZ = 200000,
 	DFRGX_FREQ_213_MHZ = 213000,
 	DFRGX_FREQ_266_MHZ = 266000,
@@ -186,11 +185,10 @@ struct userspace_gov_data {
 
 
 /*Available states - freq mapping table*/
-static const struct gpu_utilization_record a_available_state_freq[] = {
-					{DFRGX_FREQ_166_MHZ, 0xF},					
-					{DFRGX_FREQ_200_MHZ, 0xE},
+static const struct gpu_utilization_record a_available_state_freq[] = {					
+					{DFRGX_FREQ_200_MHZ, 0xF},
 					/*Need a proper value for this freq*/
-					{DFRGX_FREQ_213_MHZ, 0xD},
+					{DFRGX_FREQ_213_MHZ, 0xE},
 					{DFRGX_FREQ_266_MHZ, 0xB},
 					{DFRGX_FREQ_320_MHZ, 0x9},
 					{DFRGX_FREQ_355_MHZ, 0x8},
