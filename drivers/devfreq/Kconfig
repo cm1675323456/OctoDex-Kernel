@@ -29,6 +29,16 @@ if PM_DEVFREQ
 
 comment "DEVFREQ Governors"
 
+config DEVFREQ_SIMPLE_DEV
+	tristate "Device driver for simple clock device with no status info"
+	select DEVFREQ_GOV_PERFORMANCE
+	select DEVFREQ_GOV_POWERSAVE
+	select DEVFREQ_GOV_USERSPACE
+	select DEVFREQ_GOV_CPUFREQ
+	help
+	  Device driver for simple devices that control their frequency using
+	  clock APIs and don't have any form of status reporting.
+
 config DEVFREQ_GOV_SIMPLE_ONDEMAND
 	tristate "Simple Ondemand"
 	help
@@ -78,31 +88,4 @@ config ARM_EXYNOS4_BUS_DEVFREQ
 	  To operate with optimal voltages, ASV support is required
 	  (CONFIG_EXYNOS_ASV).
 
-<<<<<<< HEAD
-=======
-config DEVFREQ_SIMPLE_DEV
-	tristate "Device driver for simple clock device with no status info"
-	select DEVFREQ_GOV_PERFORMANCE
-	select DEVFREQ_GOV_POWERSAVE
-	select DEVFREQ_GOV_USERSPACE
-	select DEVFREQ_GOV_CPUFREQ
-	help
-	  Device driver for simple devices that control their frequency using
-	  clock APIs and don't have any form of status reporting.
-
-config MSM_DEVFREQ_CPUBW
-	bool "MSM DEVFREQ device for CPU<->DDR IB/AB BW voting"
-	depends on ARCH_MSM
-	select DEVFREQ_GOV_PERFORMANCE
-	select DEVFREQ_GOV_POWERSAVE
-	select DEVFREQ_GOV_USERSPACE
-	select DEVFREQ_GOV_MSM_CPUFREQ
-	default n
-	help
-	  Different devfreq governors use this devfreq device to make CPU to
-	  DDR IB/AB bandwidth votes. This driver provides a SoC topology
-	  agnostic interface to so that some of the devfreq governors can be
-	  shared across SoCs.
-
->>>>>>> 6af7cc0... PM / devfreq: Add devfreq driver for simple device
 endif # PM_DEVFREQ
