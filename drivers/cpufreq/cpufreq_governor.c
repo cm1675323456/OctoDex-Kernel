@@ -37,6 +37,8 @@ static struct attribute_group *get_sysfs_attr(struct dbs_data *dbs_data)
 		return dbs_data->cdata->attr_group_gov_sys;
 }
 
+static struct kobject *get_governor_parent_kobj(struct cpufreq_policy *policy);
+
 static inline u64 get_cpu_idle_time_jiffy(unsigned int cpu, u64 *wall)
 {
 	u64 idle_time;
@@ -458,6 +460,14 @@ free_common_dbs_info:
 free_dbs_data:
 	kfree(dbs_data);
 	return ret;
+}
+
+static struct kobject *get_governor_parent_kobj(struct cpufreq_policy *policy)
+{
+	if (have_governor_per_policy())
+		return &policy->kobj;
+	else
+		return cpufreq_global_kobject;
 }
 
 static int cpufreq_governor_exit(struct cpufreq_policy *policy,
