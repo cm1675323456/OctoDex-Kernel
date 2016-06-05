@@ -106,6 +106,7 @@ obj-$(CONFIG_OF)			+= devicetree.o
 obj-$(CONFIG_UPROBES)			+= uprobes.o
 
 obj-$(CONFIG_PERF_EVENTS)		+= perf_regs.o
+obj-$(CONFIG_PMC_ATOM) 			+= pmc_atom.o
 
 ###
 # 64 bit specific files

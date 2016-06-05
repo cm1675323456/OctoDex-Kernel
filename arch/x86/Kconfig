@@ -2503,6 +2503,10 @@ config A500CG
        bool "ASUS A500CG Product"
        depends on X86_MDFLD
 
+config PMC_ATOM
+	def_bool y
+        depends on PCI
+
 source "net/Kconfig"
 
 source "drivers/Kconfig"
