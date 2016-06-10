@@ -1269,8 +1269,6 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 {
 	struct inode *inode;
 	unsigned int mode;
-	uid_t uid;
-	gid_t gid;
 	kuid_t uid;
 	kgid_t gid;
 
@@ -1279,10 +1277,6 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 	bprm->cred->egid = current_egid();
 
 	if (bprm->file->f_path.mnt->mnt_flags & MNT_NOSUID)
-		return;
-
-	inode = bprm->file->f_path.dentry->d_inode;
-	if (current->no_new_privs)
 		return;
 
 	inode = file_inode(bprm->file);
