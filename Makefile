@@ -164,7 +164,7 @@ export srctree objtree VPATH
 CARCH := x86_64
 
 #Toolchain
-GCC :=/home/nyks45/toolchain/bin/x86_64-linux-android-
+GCC :=../x86_64-linaro-gcc-5.3.1/bin/x86_64-linux-
 
 
 # SUBARCH tells the usermode build what the underlying arch is.  That is set
@@ -254,18 +254,6 @@ HOSTCXXFLAGS = -Ofast -march=silvermont -mtune=silvermont -msse4.2 -mpopcnt -fgc
 ifeq ($(ENABLE_GRAPHITE),true)
 HOSTCXXFLAGS += -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-strip-mine -floop-block -fgraphite-identity -floop-block -floop-strip-mine -ftree-loop-distribution -ftree-loop-linear
 HOSTCFLAGS += -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-strip-mine -floop-block -floop-block -floop-strip-mine -fgraphite-identity -ftree-loop-distribution -ftree-loop-linear -ffast-math
-endif
-HOSTCC       = gcc
-HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
-HOSTCXXFLAGS = -O2
-HOSTCC       = $(CCACHE) gcc
-HOSTCXX      = $(CCACHE) g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast -fomit-frame-pointer -fgcse-las -std=gnu89
-HOSTCXXFLAGS = -Ofast -fgcse-las
-ifeq ($(ENABLE_GRAPHITE),true)
-HOSTCXXFLAGS += -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
-HOSTCFLAGS += -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
 endif
 
 # Decide whether to build built-in, modular, or both.
@@ -426,15 +414,6 @@ KBUILD_CFLAGS   := $(ANDROID_TOOLCHAIN_FLAGS) \
 
 # L1/L2 cache size parameters
 KBUILD_CFLAGS	+= --param l1-cache-size=32 --param l1-cache-line-size=32 --param l2-cache-size=2048
-
-		   -fno-strict-aliasing -fno-common \
-		   -Werror-implicit-function-declaration \
-		   -Wno-format-security \
-		   -fno-delete-null-pointer-checks
-		   -fno-delete-null-pointer-checks \
-		   -Wno-sizeof-pointer-memaccess \
- 		   -std=gnu89 \
-		   $(KERNEL_MODS)
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL := $(KERNEL_MODS)
