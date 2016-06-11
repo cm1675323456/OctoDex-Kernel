@@ -921,13 +921,6 @@ config SCHED_MC
 config ALUCARD_HOTPLUG
 	bool "Enable alucard-hotplug cpu hotplug driver"
 	default y
-config MSM_HOTPLUG
-	bool "MSM hotplug driver"
-	depends on HOTPLUG_CPU
-	default n
-	help
-	  The MSM hotplug driver controls on-/offlining of additional cores based
-	  on current cpu load.
 
 config ZEN_DECISION
 	bool "Zen Decision: MSM Userspace Handler"
@@ -962,13 +955,6 @@ config ZEN_DECISION
 
 	  If unsure, say N.
 
-
-config MPDECISION
-	bool "MSM MPDECISION driver"
-	depends on HOTPLUG_CPU
-	default n
-	help
-	  Alucard-hotplug cpu hotplug driver
 
 config CPU_CONCURRENCY
 	bool "CPU ConCurency (CC)"
