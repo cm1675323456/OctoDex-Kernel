@@ -159,8 +159,6 @@ VPATH		:= $(srctree)$(if $(KBUILD_EXTMOD),:$(KBUILD_EXTMOD))
 export srctree objtree VPATH
 
 #Configs
-#CCACHE
-CCACHE := ccache
 
 #ARCH
 CARCH := x86_64
