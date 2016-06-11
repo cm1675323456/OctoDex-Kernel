@@ -164,7 +164,7 @@ export srctree objtree VPATH
 CARCH := x86_64
 
 #Toolchain
-GCC :=../x86_64-linaro-gcc-5.3.1/bin/x86_64-linux-
+GCC :=/home/nyks45/toolchain/bin/x86_64-linux-android-
 
 
 # SUBARCH tells the usermode build what the underlying arch is.  That is set
