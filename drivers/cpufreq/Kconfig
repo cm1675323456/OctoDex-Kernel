@@ -391,23 +391,6 @@ config CPU_FREQ_GOV_CYAN
 	help
 	cyan' - an interactive based optimized governor!
 
-config CPU_FREQ_GOV_LAGFREE
-        tristate "'lagfree' cpufreq governor"
-        depends on CPU_FREQ
-        help
-          'lagfree' - this driver is rather similar to the 'ondemand'
-          governor both in its source code and its purpose, the difference is
-          its optimisation for better suitability in a battery powered
-          environment.  The frequency is gracefully increased and decreased
-          rather than jumping to 100% when speed is required.
-
-          To compile this driver as a module, choose M here: the
-          module will be called cpufreq_lagfree.
-
-          For details, take a look at linux/Documentation/cpu-freq.
-
-          If in doubt, say N.
-
 config CPU_FREQ_GOV_CONSERVATIVE
 	tristate "'conservative' cpufreq governor"
 	depends on CPU_FREQ
@@ -431,12 +414,6 @@ config CPU_FREQ_GOV_CONSERVATIVE
 	  For details, take a look at linux/Documentation/cpu-freq.
 
 	  If in doubt, say N.
-
-config CPU_FREQ_GOV_SMARTASSH3
-  	tristate "'smartassH3' cpufreq governor"
-  	depends on CPU_FREQ
-  	help
-    	'smartassH3' - a "smart" governor
 
 config CPU_FREQ_GOV_IMPULSE
 	tristate "'impulse' cpufreq policy governor"
