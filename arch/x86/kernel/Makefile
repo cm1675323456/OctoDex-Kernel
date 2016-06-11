@@ -55,7 +55,6 @@ obj-$(CONFIG_APM)		+= apm.o
 obj-$(CONFIG_SMP)		+= smp.o
 obj-$(CONFIG_SMP)		+= smpboot.o
 obj-$(CONFIG_ALUCARD_HOTPLUG) 		+= alucard_hotplug.o
-obj-$(CONFIG_MSM_HOTPLUG) 	+= msm_hotplug.o
 obj-$(CONFIG_ZEN_DECISION) 	+= msm_zen_decision.o
 obj-$(CONFIG_SMP)		+= tsc_sync.o
 obj-$(CONFIG_SMP)		+= setup_percpu.o
