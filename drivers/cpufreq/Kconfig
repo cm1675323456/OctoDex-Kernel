@@ -81,6 +81,15 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactiveX' governor for latency-sensitive workloads.
 
+config CPU_FREQ_DEFAULT_GOV_FRANKENSTEIN
+	bool "frankenstein"
+	select CPU_FREQ_GOV_frankenstein
+	help
+	  Use the CPUFreq governor 'frankenstein' as default. This allows
+	  you to get a full dynamic cpu frequency capable system by simply
+	  loading your cpufreq low-level hardware driver, using the
+	  'frankenstein' governor for latency-sensitive workloads.
+
 config CPU_FREQ_DEFAULT_GOV_SMARTMAX
 	bool "smartmax"
 	select CPU_FREQ_GOV_SMARTMAX
@@ -215,6 +224,11 @@ config CPU_FREQ_GOV_INTERACTIVEX
 	tristate "'interactiveX' cpufreq policy governor"
 	help
 	  'interactiveX' - Modified version of interactive with sleep+wake code.
+
+config CPU_FREQ_GOV_FRANKENSTEIN
+	tristate "'frankenstein' cpufreq policy governor"
+	help
+	  'frankenstein' - Modified version of interactive with sleep+wake code.
 
 config CPU_FREQ_GOV_SMARTMAX
 	tristate "'smartmax' cpufreq governor"
