@@ -72,6 +72,7 @@
 #include <linux/platform_device.h>
 #include <linux/slab.h>
 #include <linux/suspend.h>
+#include <linux/earlysuspend.h>
 
 #include <linux/thermal.h>
 #include <asm/errno.h>
@@ -128,7 +129,8 @@ static struct platform_device *df_rgx_created_dev;
 void df_rgx_init_available_freq_table(struct device *dev);
 int opp_add(struct device *dev, unsigned long freq, unsigned long u_volt);
 
-
+/* variable to detect screen on/off */
+static bool scr_suspended;
 
 /**
  * Module parameters:
@@ -750,7 +752,10 @@ static int df_rgx_busfreq_probe(struct platform_device *pdev)
 		df->max_freq = DFRGX_FREQ_640_MHZ;
 	}
 	else {*/
-	df->min_freq = DF_RGX_FREQ_KHZ_MIN;
+	if(scr_suspended == false) {
+		df->min_freq = DFRGX_FREQ_320_MHZ; }
+	else {
+		df->min_freq = DF_RGX_FREQ_KHZ_MIN; }
 	df->max_freq = DF_RGX_FREQ_KHZ_MAX;
 	//}
 	DFRGX_DPF(DFRGX_DEBUG_HIGH, "%s: dev_id = 0x%x, min_freq = %lu, max_freq = %lu\n",
@@ -931,6 +936,22 @@ static struct platform_driver df_rgx_busfreq_driver = {
 	},
 };
 
+/* callback functions to detect screen on and off events */
+static void early_suspend_screen_off(struct early_suspend *h)
+{
+	scr_suspended = true;
+}
+
+static void late_resume_screen_on(struct early_suspend *h)
+{
+	scr_suspended = false;
+}
+
+static struct early_suspend screen_detect = {
+	.level = EARLY_SUSPEND_LEVEL_BLANK_SCREEN,
+	.suspend = early_suspend_screen_off,
+	.resume = late_resume_screen_on,
+};
 
 static struct platform_device * __init df_rgx_busfreq_device_create(void)
 {
