@@ -32,9 +32,15 @@ cd /tmp/anykernel;
 unzip -o "$ZIP";
 
 ui_print "$(file_getprop /tmp/anykernel/anykernel.sh kernel.string)";
-ui_print " ";
-ui_print "FlareM (ziped via AnyKernel2 by osm0sis @ xda-developers)";
-ui_print " ";
+ui_print " =============================== ";
+ui_print "  VV       VV    MM MM     MM MM ";
+ui_print "   VV     VV     MM  MM   MM  MM ";
+ui_print "    VV   VV      MM   MM MM   MM ";
+ui_print "     VV VV       MM    MMM    MM ";
+ui_print "      VVV ENO    MM           MM ";
+ui_print "     Veno-M Kernel By Nyks45     ";
+ui_print " =============================== ";
+
 /sbin/busybox mount /system;
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.devicecheck)" == 1 ]; then
@@ -59,7 +65,7 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.initd)" == 1 ]; then
   set_perm_recursive 0 0 0755 0755 /system/etc/init.d;
 fi;
 
-ui_print "Installing FlareM kernel...";
+ui_print "Installing VenoM kernel...";
 /sbin/sh /tmp/anykernel/anykernel.sh;
 if [ "$(cat /tmp/anykernel/exitcode)" == 1 ]; then 
   umount /system;
