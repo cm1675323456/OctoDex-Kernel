@@ -29,6 +29,14 @@ config IOSCHED_FIOPS
           IOPS equally among all processes in the system. It's mainly for
           Flash based storage.
 
+config IOSCHED_SIOPLUS
+	tristate "Simple I/O scheduler plus"
+	default y
+	---help---
+	Based on the original SIO scheduler with improvements. Functionality for specifying
+	the starvation of async reads against sync reads; starved write requests counter
+	only counts when there actually are write requests in the queue; fixed a bug).
+
 config IOSCHED_SIO
 	tristate "Simple I/O scheduler"
 	default y
