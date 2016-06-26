@@ -32,14 +32,15 @@ cd /tmp/anykernel;
 unzip -o "$ZIP";
 
 ui_print "$(file_getprop /tmp/anykernel/anykernel.sh kernel.string)";
-ui_print " =============================== ";
-ui_print "  VV       VV    MM MM     MM MM ";
-ui_print "   VV     VV     MM  MM   MM  MM ";
-ui_print "    VV   VV      MM   MM MM   MM ";
-ui_print "     VV VV       MM    MMM    MM ";
-ui_print "      VVV ENO    MM           MM ";
-ui_print "     Veno-M Kernel By Nyks45     ";
-ui_print " =============================== ";
+ui_print " ==================================================================== ";    
+ui_print "    AA       KK   KK   HH   HH       AA   TTTTTTTT EEEEEE  NNNN    NN ";
+ui_print "   AAAA      KK KK     HH   HH      AAAA     TT    EE      NN NN   NN ";
+ui_print "  AA  AA     KKK       HHHHHHH     AA  AA    TT    EEEEEE  NN  NN  NN ";
+ui_print " AAAAAAAA    KK KK     HH   HH    AAAAAAAA   TT    EE      NN   NN NN ";
+ui_print "AA      AA   KK   KK   HH   HH   AA      AA  TT    EEEEEE  NN     NNN ";
+ui_print " ==================================================================== ";  
+ui_print "                          KERNEL BY NYKS45                            ";  
+ui_print " ==================================================================== ";  
 
 /sbin/busybox mount /system;
 
