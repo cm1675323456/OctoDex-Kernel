@@ -238,6 +238,12 @@ config CPU_FREQ_GOV_SMARTMAX
 
 	   If in doubt, say N.
 
+config CPU_FREQ_GOV_THESSJACTIVE
+	tristate "'thessjactive' cpufreq policy governor"
+	depends on CPU_FREQ	
+	help
+	credits to TheSSJ
+
 config CPU_FREQ_GOV_YANKACTIVE
 	tristate "'yankactive' cpufreq policy governor"
 	help
