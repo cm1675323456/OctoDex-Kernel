@@ -40,7 +40,6 @@ config IOSCHED_FIOPS
           IOPS equally among all processes in the system. It's mainly for
           Flash based storage.
 
-<<<<<<< HEAD
 config IOSCHED_SIOPLUS
 	tristate "Simple I/O scheduler plus"
 	default y
@@ -49,8 +48,6 @@ config IOSCHED_SIOPLUS
 	the starvation of async reads against sync reads; starved write requests counter
 	only counts when there actually are write requests in the queue; fixed a bug).
 
-=======
->>>>>>> f383376... added Row IO scheduler and fixed compilation Issues
 config IOSCHED_SIO
 	tristate "Simple I/O scheduler"
 	default y
