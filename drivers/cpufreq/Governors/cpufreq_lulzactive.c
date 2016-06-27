@@ -987,9 +987,6 @@ static int cpufreq_governor_lulzactive(struct cpufreq_policy *new_policy,
 				&lulzactive_attr_group);
 		if (rc)
 			return rc;
-
-		pm_idle_old = pm_idle;
-		pm_idle = cpufreq_lulzactive_idle;
 		break;
 
 	case CPUFREQ_GOV_STOP:
@@ -1004,7 +1001,6 @@ static int cpufreq_governor_lulzactive(struct cpufreq_policy *new_policy,
 		sysfs_remove_group(cpufreq_global_kobject,
 				&lulzactive_attr_group);
 
-		pm_idle = pm_idle_old;
 		del_timer(&pcpu->cpu_timer);
 		break;
 
@@ -1146,7 +1142,6 @@ static int __init cpufreq_lulzactive_init(void)
 {
 	unsigned int i;
 	struct cpufreq_lulzactive_cpuinfo *pcpu;
-	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
 	up_sample_time = DEFAULT_UP_SAMPLE_TIME;
 	down_sample_time = DEFAULT_DOWN_SAMPLE_TIME;
 	inc_cpu_load = DEFAULT_INC_CPU_LOAD;
@@ -1170,9 +1165,6 @@ static int __init cpufreq_lulzactive_init(void)
 			"klulzactiveup");
 	if (IS_ERR(up_task))
 		return PTR_ERR(up_task);
-
-	sched_setscheduler_nocheck(up_task, SCHED_FIFO, &param);
-	get_task_struct(up_task);
 
 	/* No rescuer thread, bind to CPU queuing the work for possibly
 	 warm cache (probably doesn't matter much). */
