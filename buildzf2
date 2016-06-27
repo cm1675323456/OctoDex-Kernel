@@ -20,7 +20,11 @@ echo "Enviroment Setup Complete Now Moving To Compiling"
 #Build
 echo "Cleaning Out Compiled Files"
 sleep 1
+<<<<<<< HEAD
 make clean
+=======
+sleep $SLEEP
+>>>>>>> ebde5ba... Add Barry Allen Governor
 wmctrl -r :ACTIVE: -N "Starting Build Process"
 echo "Starting Build Process"
 export USE_CCACHE=1
@@ -75,7 +79,6 @@ nowf=$(date +"%T")
 echo "Completion Time : $nowf"
 =======
 cd ..
-make clean
 printf "\n\n zip created\n"
 rm out/bzImage
 printf "cleaned files"
