@@ -90,6 +90,11 @@ config CPU_FREQ_DEFAULT_GOV_FRANKENSTEIN
 	  loading your cpufreq low-level hardware driver, using the
 	  'frankenstein' governor for latency-sensitive workloads.
 
+config CPU_FREQ_DEFAULT_GOV_BARRY_ALLEN
+	bool "barry_allen"
+	select CPU_FREQ_GOV_BARRY_ALLEN
+	help
+
 config CPU_FREQ_DEFAULT_GOV_SMARTMAX
 	bool "smartmax"
 	select CPU_FREQ_GOV_SMARTMAX
@@ -259,6 +264,10 @@ config CPU_FREQ_GOV_CONSERVATIVEX
 	default y	
 	help
 	A less aggressive version of conservative governor
+
+config CPU_FREQ_GOV_BARRY_ALLEN
+	tristate "'barry_allen' cpufreq policy governor"
+	help
 
  +config CPU_FREQ_GOV_INTELLIACTIVE
 	tristate "'intelliactive' cpufreq policy governor"
