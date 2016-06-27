@@ -430,6 +430,15 @@ config CPU_FREQ_GOV_IMPULSE
 
 	  If in doubt, say N.
 
+config CPU_FREQ_GOV_LULZACTIVE
+	tristate "'lulzactive' cpufreq governor"
+	depends on CPU_FREQ
+	help
+	  'lulzactive' - a new interactive governor by Tegrak!
+	  For more information please visit:
+	  http://tegrak2x.blogspot.com/2011/11/lulzactive-governor-v2.html
+          If in doubt, say N.	 
+
 config CPU_FREQ_GOV_BLUACTIVE
 	tristate "'bluactive' cpufreq governor"
 	depends on CPU_FREQ
