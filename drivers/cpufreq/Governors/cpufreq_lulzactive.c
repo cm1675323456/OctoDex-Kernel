@@ -25,7 +25,6 @@
 #include <linux/module.h>
 #include <linux/mutex.h>
 #include <linux/sched.h>
-#include <linux/sched/rt.h>
 #include <linux/tick.h>
 #include <linux/timer.h>
 #include <linux/workqueue.h>
@@ -52,6 +51,7 @@
 #define LOGI(fmt...) printk(KERN_INFO "[lulzactive] " fmt)
 #define LOGW(fmt...) printk(KERN_WARNING "[lulzactive] " fmt)
 #define LOGD(fmt...) printk(KERN_DEBUG "[lulzactive] " fmt)
+
 static void (*pm_idle_old)(void);
 static atomic_t active_count = ATOMIC_INIT(0);
 
@@ -987,7 +987,6 @@ static int cpufreq_governor_lulzactive(struct cpufreq_policy *new_policy,
 				&lulzactive_attr_group);
 		if (rc)
 			return rc;
-
 		break;
 
 	case CPUFREQ_GOV_STOP:
@@ -1143,7 +1142,6 @@ static int __init cpufreq_lulzactive_init(void)
 {
 	unsigned int i;
 	struct cpufreq_lulzactive_cpuinfo *pcpu;
-	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
 	up_sample_time = DEFAULT_UP_SAMPLE_TIME;
 	down_sample_time = DEFAULT_DOWN_SAMPLE_TIME;
 	inc_cpu_load = DEFAULT_INC_CPU_LOAD;
@@ -1167,9 +1165,6 @@ static int __init cpufreq_lulzactive_init(void)
 			"klulzactiveup");
 	if (IS_ERR(up_task))
 		return PTR_ERR(up_task);
-
-	sched_setscheduler_nocheck(up_task, SCHED_FIFO, &param);
-	get_task_struct(up_task);
 
 	/* No rescuer thread, bind to CPU queuing the work for possibly
 	 warm cache (probably doesn't matter much). */
