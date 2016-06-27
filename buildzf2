@@ -27,6 +27,12 @@ export BZIMAGE=arch/x86/boot/bzImage
 echo "Enviroment Setup Complete Now Moving To Compiling"
 
 #Build
+echo "Cleaning Out Compiled Files"
+sleep 1
+make clean
+sleep $SLEEP
+#make clean
+wmctrl -r :ACTIVE: -N "Starting Build Process"
 echo "Starting Build Process"
 export USE_CCACHE=1
 sleep $SLEEP
@@ -80,6 +86,7 @@ echo "Compiling Akhaten_"$VER".zip"
 find . -type f -exec zip Akhaten_"$VER".zip {} +
 nowf=$(date +"%T")
 cd ..
+make clean
 printf "\n\n zip created\n"
 rm out/bzImage
 printf "cleaned files"
