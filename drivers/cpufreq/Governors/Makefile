@@ -7,6 +7,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_LAGFREE)       += cpufreq_lagfree.o
 obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)	 += cpufreq_lionheart.o
 obj-$(CONFIG_CPU_FREQ_GOV_ONDEMAND)	 += cpufreq_ondemand.o
 obj-$(CONFIG_CPU_FREQ_GOV_PERFORMANCE)	 += cpufreq_performance.o
+obj-$(CONFIG_CPU_FREQ_GOV_HYPER)	 += cpufreq_HYPER.o 
 obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	 += cpufreq_powersave.o
 obj-$(CONFIG_CPU_FREQ_GOV_BARRY_ALLEN)	 += cpufreq_barry_allen.o 
 obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	 += cpufreq_userspace.o
