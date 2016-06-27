@@ -31,3 +31,4 @@ obj-$(CONFIG_CPU_FREQ_GOV_INTEL)	 += cpufreq_intel.o
 obj-$(CONFIG_CPU_FREQ_GOV_HYBRID)	 += cpufreq_hybrid.o
 obj-$(CONFIG_CPU_FREQ_GOV_YANKACTIVE)	 += cpufreq_yankactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_THESSJACTIVE)	 += cpufreq_thessjactive.o
+obj-$(CONFIG_CPU_FREQ_GOV_DYNAMIC_INTERACTIVE)   += cpufreq_dynamic_interactive.o 
