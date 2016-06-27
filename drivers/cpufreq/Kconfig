@@ -212,12 +212,6 @@ config CPU_FREQ_DEFAULT_GOV_INTEL
 	  'intel' governor for better perfromance and power with Intel
 	  mobile platforms.
 
-config CPU_FREQ_DEFAULT_GOV_HYPER
-	bool "HYPER"
-	select CPU_FREQ_GOV_HYPER
-	---help---
-	  Use the CPUFreq governor 'HYPER' as default.
-
 config CPU_FREQ_DEFAULT_GOV_SMARTASSH3
   	bool "smartassH3"
   	select CPU_FREQ_GOV_SMARTASSH3
@@ -254,12 +248,6 @@ config CPU_FREQ_GOV_THESSJACTIVE
 	depends on CPU_FREQ	
 	help
 	credits to TheSSJ
-
-config CPU_FREQ_GOV_HYPER
-	tristate "'HYPER' cpufreq governor"
-	depends on CPU_FREQ
-	---help---
-	  'HYPER' - a tweaked "ondemand" based smart and smooth optimized governor!	
 
 config CPU_FREQ_GOV_YANKACTIVE
 	tristate "'yankactive' cpufreq policy governor"
