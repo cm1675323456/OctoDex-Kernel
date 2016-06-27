@@ -2477,4 +2477,4 @@ source "arch/x86/kvm/Kconfig"
 
 source "lib/Kconfig"
 
-source "arch/x86/kernel/hotplug/Kconfig"
+source "arch/x86/kernel/Hotplugs/Kconfig"
