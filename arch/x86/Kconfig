@@ -2481,4 +2481,8 @@ source "arch/x86/kvm/Kconfig"
 
 source "lib/Kconfig"
 
+menu "CPU HotPlug Settings"
+depends on X86
 source "arch/x86/kernel/Hotplugs/Kconfig"
+endmenu
+
