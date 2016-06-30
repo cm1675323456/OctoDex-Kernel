@@ -19,10 +19,10 @@ export CPUS=`nproc`
 echo "Setting Version Number"
 export VER=v$1
 echo "Setting Extra Version"
-export EV=EXTRAVERSION=_Akhaten_v$1
+export EV=EXTRAVERSION=_OctoDex_v$1
 echo "Setting Defconfig"
 export DEFCONFIG=cyanogenmod_zenfone2_defconfig
-echo "Setting bzImage Location For Akhaten kernel By Nyks45 Of XDA (thanks to eoghan2t7)"
+echo "Setting bzImage Location For OctoDex kernel By Nyks45 Of XDA (thanks to eoghan2t7)"
 export BZIMAGE=arch/x86/boot/bzImage
 echo "Enviroment Setup Complete Now Moving To Compiling"
 
@@ -45,7 +45,7 @@ else
    make $DEFCONFIG
    sleep $SLEEP
 fi
-wmctrl -r :ACTIVE: -N "Compiling Akhaten Kernel"
+wmctrl -r :ACTIVE: -N "Compiling OctoDex Kernel"
 make $EV -j$CPUS
 
 if [ -f $BZIMAGE ];
@@ -71,7 +71,7 @@ echo "Starting Build Process  : done"
 echo "Build complete"
 
 #Kernel Packing
-wmctrl -r :ACTIVE: -N "Akhaten Kernel Packing"
+wmctrl -r :ACTIVE: -N "OctoDex Kernel Packing"
 echo "Starting Packing To Recovery Flashable Zip"
 cd out/
 echo "Removing Old Files"
@@ -80,8 +80,8 @@ sleep $SLEEP
 echo "Copying bzImage"
 mv ../arch/x86/boot/bzImage bzImage
 sleep $SLEEP
-echo "Compiling Akhaten_"$VER".zip"
-find . -type f -exec zip Akhaten_"$VER".zip {} +
+echo "Compiling OctoDex_"$VER".zip"
+find . -type f -exec zip OctoDex_"$VER".zip {} +
 nowf=$(date +"%T")
 cd ..
 printf "\n\n zip created\n"
