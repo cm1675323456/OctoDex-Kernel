@@ -1524,3 +1524,4 @@ MODULE_DESCRIPTION("'cpufreq_barry_allen' - A cpufreq governor for "
 	"Latency sensitive workloads");
 MODULE_LICENSE("GPL");
 
+
