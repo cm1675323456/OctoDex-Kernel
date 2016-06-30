@@ -6,7 +6,8 @@ obj-$(CONFIG_CPU_FREQ)			 += cpufreq.o
 obj-$(CONFIG_CPU_FREQ_STAT)              += cpufreq_stats.o
 
 # CPUfreq governors 
-obj-y				+= Governors/
+obj-$(CONFIG_CPU_FREQ_GOV_INTEL)	 += cpufreq_intel.o
+obj-y				         += Governors/
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		 += freq_table.o
