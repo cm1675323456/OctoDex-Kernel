@@ -21,7 +21,7 @@ export VER=v$1
 echo "Setting Extra Version"
 export EV=EXTRAVERSION=_OctoDex_v$1
 echo "Setting Defconfig"
-export DEFCONFIG=cyanogenmod_zenfone2_defconfig
+export DEFCONFIG=OctoDex_Kernel_defconfig
 echo "Setting bzImage Location For OctoDex kernel By Nyks45 Of XDA (thanks to eoghan2t7)"
 export BZIMAGE=arch/x86/boot/bzImage
 echo "Enviroment Setup Complete Now Moving To Compiling"
