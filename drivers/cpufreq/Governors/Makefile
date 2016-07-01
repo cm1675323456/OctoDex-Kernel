@@ -32,3 +32,22 @@ obj-$(CONFIG_CPU_FREQ_GOV_HYBRID)	 += cpufreq_hybrid.o
 obj-$(CONFIG_CPU_FREQ_GOV_YANKACTIVE)	 += cpufreq_yankactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_THESSJACTIVE)	 += cpufreq_thessjactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_DYNAMIC_INTERACTIVE)   += cpufreq_dynamic_interactive.o 
+<<<<<<< HEAD
+=======
+obj-$(CONFIG_CPU_FREQ_GOV_HOTPLUG)	         += cpufreq_hotplug.o
+obj-$(CONFIG_CPU_FREQ_GOV_SMARTMAX)              += cpufreq_smartmax.o
+obj-$(CONFIG_CPU_FREQ_GOV_LULZACTIVE)	         += cpufreq_lulzactive.o
+obj-$(CONFIG_CPU_FREQ_GOV_DARKNESS)	         += cpufreq_darkness.o
+obj-$(CONFIG_CPU_FREQ_GOV_COMMON)	         += cpufreq_governor.o
+obj-$(CONFIG_CPU_FREQ_GOV_IMPULSE)	         += cpufreq_impulse.o
+obj-$(CONFIG_CPU_FREQ_GOV_CYAN)		         += cpufreq_cyan.o 
+obj-$(CONFIG_CPU_FREQ_GOV_BLUACTIVE)	         += cpufreq_bluactive.o
+obj-$(CONFIG_CPU_FREQ_GOV_NIGHTMARE)	         += cpufreq_nightmare.o
+obj-$(CONFIG_CPU_FREQ_GOV_LAZY)		         += cpufreq_lazy.o
+obj-$(CONFIG_CPU_FREQ_GOV_PEGASUSQ)	         += cpufreq_pegasusq.o
+obj-$(CONFIG_CPU_FREQ_GOV_INTELLIACTIVE)         += cpufreq_intelliactive.o
+obj-$(CONFIG_CPU_FREQ_GOV_SMARTASSH3)	         += cpufreq_smartassH3.o
+obj-$(CONFIG_CPU_FREQ_GOV_YANKACTIVE)	         += cpufreq_yankactive.o
+obj-$(CONFIG_CPU_FREQ_GOV_THESSJACTIVE)	         += cpufreq_thessjactive.o
+obj-$(CONFIG_CPU_FREQ_GOV_SMARTASS2)             += cpufreq_smartass2.o 
+>>>>>>> dcc88ee... Add Smartass2

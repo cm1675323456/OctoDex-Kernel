@@ -151,6 +151,11 @@ config CPU_FREQ_DEFAULT_GOV_POWERSAVE
 	  the frequency statically to the lowest frequency supported by
 	  the CPU.
 
+config CPU_FREQ_DEFAULT_GOV_SMARTASS2
+  	bool "smartassV2"
+  	select CPU_FREQ_GOV_SMARTASS2
+  	help
+
 config CPU_FREQ_DEFAULT_GOV_USERSPACE
 	bool "userspace"
 	select CPU_FREQ_GOV_USERSPACE
@@ -312,6 +317,12 @@ config CPU_FREQ_GOV_ADAPTIVE
 	  'adaptive' - This driver adds a dynamic cpufreq policy governor
 	  designed for latency-sensitive workloads and also for demanding
 	  performance.
+
+config CPU_FREQ_GOV_SMARTASS2
+  	tristate "'smartassV2' cpufreq governor"
+  	depends on CPU_FREQ
+  	help
+    	'smartassV2' - a "smart" governor
 
 config CPU_FREQ_GOV_WHEATLEY
 	   tristate "'wheatley' cpufreq governor"
