@@ -104,7 +104,7 @@ static int g_cpu_up_sum_grade = 0;
 static long g_cpu_down_sum_load_freq = 0;
 static int g_cpu_down_count = 0;
 
-static void hp_work_handler(struct work_struct *work);
+static void __cpuinit hp_work_handler(struct work_struct *work);
 static struct delayed_work hp_work;
 
 #endif
