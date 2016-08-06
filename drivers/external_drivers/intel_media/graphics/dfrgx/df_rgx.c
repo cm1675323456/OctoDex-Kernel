@@ -750,7 +750,7 @@ static int df_rgx_busfreq_probe(struct platform_device *pdev)
 	}
 	else {*/
 	if(scr_suspended == false) {
-		df->min_freq = DFRGX_FREQ_457_MHZ; }
+		df->min_freq = DFRGX_FREQ_320_MHZ; }
 	else {
 		df->min_freq = DF_RGX_FREQ_KHZ_MIN; }
 	df->max_freq = DF_RGX_FREQ_KHZ_MAX;
