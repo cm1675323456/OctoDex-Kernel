@@ -1,7 +1,6 @@
 #!/bin/bash
 clear
-
-echo -e " \e[94m"
+echo -e " \e[31m"
 title="====================================== "
 printf "%*s\n" 60 "$title"
 title="   . .       . .     . . .     . .     "
@@ -35,16 +34,16 @@ printf "%*s\n" 60 "$title"
 title=" ===================================== "
 printf "%*s\n" 60 "$title"
 
-echo -e " \e[94m"
+echo -e " \e[32m"
 PS3='Please enter your choice: '
 options=("Compile Kernel" "Clean Old Files" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
         "Compile Kernel")
-echo -e "\e[35mThis Script Edited By Nyks45\e[0m"
-echo -e "\e[35mSay Thanks To Him İf He Helped U\e[0m"
-echo -e "\e[92mApplying Build Settings\e[0m"
+echo -e "\e[33mThis Script Edited By Nyks45\e[0m"
+echo -e "\e[34mSay Thanks To Him İf He Helped U\e[0m"
+echo -e "\e[35mApplying Build Settings\e[0m"
 
 export ARCH=x86_64
 export CCOMPILE=$CROSS_COMPILE
@@ -52,37 +51,37 @@ export CROSS_COMPILE=x86_64-linux-
 
 #CONFIGS
 export SLEEP=1
-echo -e "\e[93mSetting CPU Cores/Threads\e[0m"
+echo -e "\e[36mSetting CPU Cores/Threads\e[0m"
 export CPUS=`nproc`
-echo -e "\e[93mSetting Toolchain Location/Threads\e[0m"
-echo -e "\e[32mSetting Version Number\e[0m"
-echo -e " \e[35m"
+echo -e "\e[37mSetting Toolchain Location/Threads\e[0m"
+echo -e "\e[90mSetting Version Number\e[0m"
+echo -e " \e[91m"
 read -p "Enter Version Number : " s
 v='v'
 export VER=$v$s
-echo -e "\e[31mVersion Number Is Setting To $v$sS\e[0m"
+echo -e "\e[92mVersion Number Is Setting To $v$sS\e[0m"
 
-echo -e "\e[95mSetting Defconfig\e[0m"
+echo -e "\e[93mSetting Defconfig\e[0m"
 export DEFCONFIG=OctoDex_Kernel_defconfig
-echo -e "\e[96mSetting bzImage Location For OctoDex kernel By Nyks45 Of XDA\e[0m"
+echo -e "\e[94mSetting bzImage Location For OctoDex kernel By Nyks45 Of XDA\e[0m"
 export BZIMAGE=arch/x86/boot/bzImage
-echo -e "\e[90mEnviroment Setup Complete Now Moving To Compiling\e[0m"
+echo -e "\e[36mEnviroment Setup Complete Now Moving To Compiling\e[0m"
 
 #Build
 sleep 1
 sleep $SLEEP
-echo -e "\e[31mStarting Build Process\e[0m"
+echo -e "\e[96mStarting Build Process\e[0m"
 export USE_CCACHE=1
 sleep $SLEEP
 if [ -f .config ];
 then
-   echo -e "\e[95m.config exists\e[0m"
-   echo -e "\e[95mContinuing To Compiler\e[0m"
+   echo -e "\e[97m.config exists\e[0m"
+   echo -e "\e[31mContinuing To Compiler\e[0m"
    sleep $SLEEP
 else
-   echo -e "\e[95m.config Does Not Exists\e[0m"
-   echo -e "\e[95mCompiling From $DEFCONFIG\e[0m"
-echo -e " \e[94m"
+   echo -e "\e[32m.config Does Not Exists\e[0m"
+   echo -e "\e[33mCompiling From $DEFCONFIG\e[0m"
+echo -e " \e[34m"
    make $DEFCONFIG
    sleep $SLEEP
 fi
@@ -91,43 +90,42 @@ make $EV -j$CPUS
 
 if [ -f $BZIMAGE ];
 then
-   echo -e "\e[95m$BZIMAGE exists\e[0m"
-   echo -e "\e[95mCompile Complete Continuing To Packing\e[0m"
+   echo -e "\e[35m$BZIMAGE exists\e[0m"
+   echo -e "\e[36mCompile Complete Continuing To Packing\e[0m"
    sleep $SLEEP
 else
-   echo -e "\e[95m$BZIMAGE Does Not Exists Please Check For Compile Errors\e[0m"
-   echo -e "\e[95mNow exiting script\e[0m"
+   echo -e "\e[37m$BZIMAGE Does Not Exists Please Check For Compile Errors\e[0m"
+   echo -e "\e[90mNow exiting script\e[0m"
    sleep $SLEEP
    exit 0
 fi
 clear
-echo -e " \e[94m"
-echo -e "\e[31mScript Made By Nyks45 From XDA\e[0m"
-echo -e " \e[94m"
+echo -e " \e[91m"
+echo -e "\e[92mScript Made By Nyks45 From XDA\e[0m"
+echo -e " \e[93m"
 printf "Say Him To Thanks If He Helped You \n\n"
 echo -e " \e[94m"
 echo "Version Number = $VER"
-echo -e " \e[94m"
+echo -e " \e[37m"
 echo "Build complete"
 
 #Kernel Packing
-echo -e "\e[95mOctoDex Kernel Packing\e[0m"
-echo -e "\e[95mStarting Packing To Recovery Flashable Zip\e[0m"
+echo -e "\e[96mOctoDex Kernel Packing\e[0m"
+echo -e "\e[97mStarting Packing To Recovery Flashable Zip\e[0m"
 cd out/
-echo "bzimage"
 rm -rf bzImage *.zip
 sleep $SLEEP
-echo "Copying bzImage"
+echo -e "\e[31mCopying bzImage\e[0m"
 mv ../arch/x86/boot/bzImage bzImage
 sleep $SLEEP
-echo -e "\e[95mCompiling OctoDex_"$VER".zip\e[0m"
+echo -e "\e[32mCompiling OctoDex_"$VER".zip\e[0m"
+echo -e " \e[33m"
 find . -type f -exec zip OctoDex_"$VER".zip {} +
-nowf=$(date +"%T")
 cd ..
-printf "\n\n zip created\n"
 rm out/bzImage
+echo -e " \e[34m"
 printf "\n\nzip created\n"
-echo -e " \e[94m"
+echo -e " \e[35m"
 title="====================================== "
 printf "%*s\n" 60 "$title"
 title="   . .       . .     . . .     . .     "
@@ -161,6 +159,7 @@ printf "%*s\n" 60 "$title"
 title=" ===================================== "
 printf "%*s\n" 60 "$title"
 
+break
             ;;
         "Clean Old Files")
 read -r -p "Are you sure? [y/N] " response
@@ -181,3 +180,4 @@ echo "Cleaning Out Compiled Files"
         *) echo invalid option;;
     esac
 done
+reset
