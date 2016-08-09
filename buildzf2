@@ -48,13 +48,14 @@ echo -e "\e[35mApplying Build Settings\e[0m"
 export ARCH=x86_64
 export CCOMPILE=$CROSS_COMPILE
 export CROSS_COMPILE=x86_64-linux-
+export PATH=$l/home/nyks45/Linaro-TC/bin:$PATH
 
 #CONFIGS
 export SLEEP=1
 echo -e "\e[36mSetting CPU Cores/Threads\e[0m"
 export CPUS=`nproc`
 echo -e " \e[91m"
-read -r -p "Do You Want TO Locate Toolchain?(U don't need To Do İf u Did That In this Terminal Session) [y/N] " response
+read -r -p "Do You Want TO Replace Toolchain Location?(Y For Replacing Place N For Keep It default) [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
 echo -e "\e[37mSetting Toolchain Location\e[0m"
