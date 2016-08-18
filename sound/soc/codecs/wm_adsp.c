@@ -2394,6 +2394,8 @@ int wm_adsp2_init(struct wm_adsp *adsp, bool dvfs)
 }
 EXPORT_SYMBOL_GPL(wm_adsp2_init);
 
+MODULE_LICENSE("GPL v2");
+
 bool wm_adsp_compress_supported(const struct wm_adsp *adsp,
 				const struct snd_compr_stream *stream)
 {
