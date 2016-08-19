@@ -21,7 +21,6 @@
 #include <linux/cpufreq.h>
 #include <linux/mutex.h>
 #include <linux/sched.h>
-#include <linux/sched/rt.h>
 #include <linux/tick.h>
 #include <linux/time.h>
 #include <linux/timer.h>
@@ -178,8 +177,8 @@ static void cpufreq_dynamic_interactive_timer(unsigned long data)
 	if (!idle_exit_time)
 		goto exit;
 
-	delta_idle = (unsigned int) (now_idle, time_in_idle);
-	delta_time = (unsigned int) (pcpu->timer_run_time,
+	delta_idle = (unsigned int) cputime64_sub(now_idle, time_in_idle);
+	delta_time = (unsigned int) cputime64_sub(pcpu->timer_run_time,
 						  idle_exit_time);
 
 	/*
@@ -193,9 +192,9 @@ static void cpufreq_dynamic_interactive_timer(unsigned long data)
 	else
 		cpu_load = 100 * (delta_time - delta_idle) / delta_time;
 
-	delta_idle = (unsigned int) (now_idle,
+	delta_idle = (unsigned int) cputime64_sub(now_idle,
 						pcpu->target_set_time_in_idle);
-	delta_time = (unsigned int) (pcpu->timer_run_time,
+	delta_time = (unsigned int) cputime64_sub(pcpu->timer_run_time,
 						  pcpu->target_set_time);
 
 	if ((delta_time == 0) || (delta_idle > delta_time))
@@ -280,7 +279,7 @@ static void cpufreq_dynamic_interactive_timer(unsigned long data)
 
 			if (pcpu->target_freq == hispeed_freq &&
 			    new_freq > hispeed_freq &&
-			    (pcpu->timer_run_time,
+			    cputime64_sub(pcpu->timer_run_time,
 					  pcpu->hispeed_validate_time)
 			    < above_hispeed_delay_val) {
 				trace_cpufreq_dynamic_interactive_notyet(data, cpu_load,
@@ -311,7 +310,7 @@ static void cpufreq_dynamic_interactive_timer(unsigned long data)
 	 * floor frequency for the minimum sample time since last validated.
 	 */
 	if (new_freq < pcpu->floor_freq) {
-		if ((pcpu->timer_run_time,
+		if (cputime64_sub(pcpu->timer_run_time,
 				  pcpu->floor_validate_time)
 		    < min_sample_time) {
 			trace_cpufreq_dynamic_interactive_notyet(data, cpu_load,
@@ -1042,7 +1041,6 @@ static int __init cpufreq_dynamic_interactive_init(void)
 {
 	unsigned int i;
 	struct cpufreq_dynamic_interactive_cpuinfo *pcpu;
-	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
 
 	go_hispeed_load = DEFAULT_GO_HISPEED_LOAD;
 	min_sample_time = DEFAULT_MIN_SAMPLE_TIME;
@@ -1072,7 +1070,6 @@ static int __init cpufreq_dynamic_interactive_init(void)
     if (IS_ERR(speedchange_task))
         return PTR_ERR(speedchange_task);        
 
-	sched_setscheduler_nocheck(speedchange_task, SCHED_FIFO, &param);
 	get_task_struct(speedchange_task);
 
 	tune_wq = alloc_workqueue("knteractive_tune", 0, 1);
