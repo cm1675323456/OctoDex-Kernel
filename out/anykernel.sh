@@ -3,12 +3,12 @@
 
 ## AnyKernel setup
 # EDIFY properties
-kernel.string=Zenfone 2 AnyKernel Script
+kernel.string=OctoDex Kernel by Nyks45
 do.devicecheck=0
-do.initd=0
+do.initd=1
 do.modules=0
 do.cleanup=0
-device.name1=Z00A
+device.name1=
 device.name2=
 device.name3=
 device.name4=
