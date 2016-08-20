@@ -14,7 +14,7 @@ ui_print() {
 }
 show_progress() { echo "progress $1 $2" > $OUTFD; }
 set_perm_recursive() {
-  dirs=$(echo $* | awk '{ print substr($0, index($0,$5)) }');
+  dirs=$(echo $* | $bb awk '{ print substr($0, index($0,$5)) }');
   for i in $dirs; do
     chown -R $1.$2 $i; chown -R $1:$2 $i;
     find "$i" -type d -exec chmod $3 {} +;
@@ -30,6 +30,8 @@ ui_print " ";
 mkdir -p /tmp/anykernel;
 cd /tmp/anykernel;
 unzip -o "$ZIP";
+chmod -R 755 /tmp/anykernel/tools /tmp/anykernel/bin;
+bb=/tmp/anykernel/tools/busybox;
 
 ui_print "$(file_getprop /tmp/anykernel/anykernel.sh kernel.string)";
 ui_print " ======================================";
@@ -85,7 +87,6 @@ fi;
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.modules)" == 1 ]; then
   ui_print "Pushing modules...";
-  ui_print " ";
   cp -f /tmp/anykernel/modules/* /system/lib/modules/;
   set_perm_recursive 0 0 0755 0644 /system/lib/modules;
 fi;
