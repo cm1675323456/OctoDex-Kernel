@@ -70,7 +70,7 @@ obj-$(CONFIG_VIDEO_LM3642) += lm3642.o
 #Olivia Laser Sensor
 obj-$(CONFIG_OLIVIA_LASERSENSOR)    += LaserSensor/
 
-ccflags-y += -Werror
+#ccflags-y += -Werror
 
 # Add cflags to build camera sensor driver for CTP board
 ccflags-$(CONFIG_VIDEO_ATOMISP_CTP) += -DCSS15
