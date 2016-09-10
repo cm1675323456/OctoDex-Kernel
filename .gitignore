@@ -32,6 +32,7 @@ modules.builtin
 *.gcno
 *.bin
 *.zip
+bzimage
 
 #
 # Top-level generic files
