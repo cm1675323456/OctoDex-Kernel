@@ -41,8 +41,11 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Compile Kernel")
+start=`date +%s`
 echo -e "\e[33mThis Script Edited By Nyks45\e[0m"
 echo -e "\e[34mSay Thanks To Him İf He Helped U\e[0m"
+NOW=$(date +"%d-%m-%Y")
+echo "Current Date : $NOW"
 echo -e "\e[35mApplying Build Settings\e[0m"
 
 export ARCH=x86_64
@@ -120,6 +123,7 @@ sleep $SLEEP
 echo -e "\e[32mCompiling OctoDex_"$VER".zip\e[0m"
 echo -e " \e[33m"
 find . -type f -exec zip OctoDex_"$VER".zip {} +
+nowf=$(date +"%T")
 cd ..
 rm out/bzImage
 echo -e " \e[34m"
@@ -157,6 +161,10 @@ title="        . .     . . .     .   .        "
 printf "%*s\n" 60 "$title"
 title=" ===================================== "
 printf "%*s\n" 60 "$title"
+
+end=`date +%s`
+runtime=$((end-start))
+echo "Completion Time :$runtime sec"
 
 break
             ;;
