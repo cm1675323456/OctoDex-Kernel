@@ -692,16 +692,6 @@ static int otm1284a_vid_set_brightness(struct mdfld_dsi_config *dsi_config,
 	union pwmctrl_reg pwmctrl;
 	static void __iomem *bl_en_mmio;
 
-<<<<<<< HEAD
-=======
-#ifdef CONFIG_BACKLIGHT_RT4532
-	rt4532_brightness_set(level);
-#else
-	/* Re-assign the minimum brightness value to 2 */
-	//if (level < 2)
-	//	level = 2;
-	
->>>>>>> b3d6866... minimum backlight decreased more
 	reg_level = ~level & 0xFF;
 	pwmctrl.part.pwmswupdate = 0x1;
 	pwmctrl.part.pwmbu = PWM_BASE_UNIT;
@@ -736,15 +726,9 @@ static int otm1284a_vid_set_brightness(struct mdfld_dsi_config *dsi_config,
 	} else {
 		DRM_ERROR("Cannot map pwmctrl\n");
 	}
-<<<<<<< HEAD
 
 	printk("[DISP] brightness level = %d\n", level);
 
-=======
-	if(level == 0)
-		printk("[DISP] brightness level = %d\n", level);
-#endif
->>>>>>> b3d6866... minimum backlight decreased more
 	return 0;
 }
 
