@@ -1076,14 +1076,6 @@ static struct power_suspend lulzactive_power_suspend = {
 };
 #endif  /* CONFIG_POWERSUSPEND */
 
-#ifdef CONFIG_HAS_EARLYSUSPEND
-static struct early_suspend lulzactive_power_suspend = {
-		.suspend = lulzactive_early_suspend,
-		.resume = lulzactive_late_resume,
-		.level = EARLY_SUSPEND_LEVEL_DISABLE_FB + 1,
-};
-#endif	/* CONFIG_HAS_EARLYSUSPEND */
-
 static int lulzactive_pm_notifier_event(struct notifier_block *this,
 		unsigned long event, void *ptr)
 {

@@ -1908,4 +1908,3 @@ module_exit(asus_battery_fake_exit);
 MODULE_AUTHOR("chris1_chang@asus.com");
 MODULE_DESCRIPTION("battery driver");
 MODULE_LICENSE("GPL");
-
