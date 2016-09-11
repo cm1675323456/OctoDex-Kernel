@@ -700,7 +700,7 @@ static int asus_battery_update_status_no_mutex(int percentage)
                 status = POWER_SUPPLY_STATUS_CHARGING;
 #ifdef CONFIG_BLX
                 if (percentage >= get_charginglimit() && get_charginglimit() <= 98) {
-#elif defined(CONFIG_SMB1357_CHARGER)
+#if defined(CONFIG_SMB1357_CHARGER)
 			smb1357_charging_toggle(false);
 #endif
 						//Fake the battery to be full now and exit here
