@@ -88,8 +88,17 @@ echo -e " \e[34m"
    sleep $SLEEP
 fi
 echo -e "\e[34mCompiling OctoDex Kernel\e[0m"
+make modules_prepare
+mv include/config/extra/fIrmware include/config/extra/firmware 
+mv include/config/extra/fIrmware.h include/config/extra/firmware.h
+mv include/config/extra/firmware/dIr.h include/config/extra/firmware/dir.h 
+
 make $EV -j$CPUS
 
+mv include/config/extra/firmware include/config/extra/fIrmware 
+mv include/config/extra/firmware.h include/config/extra/fIrmware.h
+mv include/config/extra/fIrmware/dir.h include/config/extra/fIrmware/dIr.h
+ 
 if [ -f $BZIMAGE ];
 then
    echo -e "\e[35m$BZIMAGE exists\e[0m"
