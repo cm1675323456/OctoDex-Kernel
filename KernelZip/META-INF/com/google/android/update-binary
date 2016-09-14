@@ -32,9 +32,25 @@ cd /tmp/anykernel;
 unzip -o "$ZIP";
 
 ui_print "$(file_getprop /tmp/anykernel/anykernel.sh kernel.string)";
-ui_print " ";
-ui_print "AnyKernel2 by osm0sis @ xda-developers";
-ui_print " ";
+ui_print " ======================================";
+ui_print "   . .       . .     . . .     . .     ";
+ui_print " .     .    .          .     .     .   ";
+ui_print " .     .    .          .     .     .   ";
+ui_print " .     .    .          .     .     .   ";
+ui_print "   . .       . .       .       . .     ";
+ui_print "                                       ";
+ui_print "             ............              ";
+ui_print "             ............              ";
+ui_print "                                       ";
+ui_print "        . .     . . .     .   .        ";
+ui_print "        .  .    .          . .         ";
+ui_print "        .  .    . . .       .          ";
+ui_print "        .  .    .          . .         ";
+ui_print "        . .     . . .     .   .        ";
+ui_print " ===================================== ";
+ui_print "          KERNEL BY NYKS45             ";  
+ui_print " ===================================== "; 
+
 /sbin/busybox mount /system;
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.devicecheck)" == 1 ]; then
@@ -59,7 +75,8 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.initd)" == 1 ]; then
   set_perm_recursive 0 0 0755 0755 /system/etc/init.d;
 fi;
 
-ui_print "Installing kernel...";
+ui_print "Installing OctoDex kernel...";
+ui_print "Device Bricked Have Fun With Bricked Device :P";
 /sbin/sh /tmp/anykernel/anykernel.sh;
 if [ "$(cat /tmp/anykernel/exitcode)" == 1 ]; then 
   umount /system;
@@ -80,4 +97,3 @@ fi;
 umount /system;
 ui_print " ";
 ui_print "Done!";
-
