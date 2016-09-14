@@ -2506,3 +2506,9 @@ menu "Hotplugs"
 source "arch/x86/kernel/Hotplugs/Kconfig"
 
 endmenu
+
+menu "Cpu Governors"
+
+source "drivers/cpufreq/Governors/Kconfig"
+
+endmenu
