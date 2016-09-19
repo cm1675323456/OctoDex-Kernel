@@ -737,11 +737,11 @@ static int df_rgx_busfreq_probe(struct platform_device *pdev)
 		df->max_freq = DFRGX_FREQ_320_MHZ;
 	}
 	if (df_rgx_is_max_fuse_set()) {
-		df->min_freq = DFRGX_FREQ_266_MHZ;
+		df->min_freq = DFRGX_FREQ_320_MHZ;
 		df->max_freq = DFRGX_FREQ_640_MHZ;
 	}
 	else {
-		df->min_freq = DFRGX_FREQ_266_MHZ;
+		df->min_freq = DFRGX_FREQ_320_MHZ;
 		df->max_freq = DFRGX_FREQ_533_MHZ;
 	}
 	DFRGX_DPF(DFRGX_DEBUG_HIGH, "%s: dev_id = 0x%x, min_freq = %lu, max_freq = %lu\n",
