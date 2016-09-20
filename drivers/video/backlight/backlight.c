@@ -22,7 +22,7 @@
 #endif
 
 #define SYSTEM_SET_BRIGHTNESS 15
-static unsigned long min_brightness=2;
+static unsigned long min_brightness=3;
 
 static const char *const backlight_types[] = {
 	[BACKLIGHT_RAW] = "raw",
@@ -169,9 +169,9 @@ static ssize_t backlight_store_brightness(struct device *dev,
 			if(brightness <= 100) //leave the possibility to set the max value
 			{
 				tmp = SYSTEM_SET_BRIGHTNESS - min_brightness;
-				brightness = (brightness >= SYSTEM_SET_BRIGHTNESS ? brightness-tmp : min_brightness); //otherwise "stretch" min brightness to 2%
+				brightness = (brightness >= SYSTEM_SET_BRIGHTNESS ? brightness-tmp : min_brightness); //otherwise set brightness to min_brightness
 			}
-			pr_debug("set brightness to %lu\n", brightness);
+			//pr_debug("set brightness to %lu\n", brightness);
 			bd->props.brightness = brightness;
 			backlight_update_status(bd);
 			rc = count;
