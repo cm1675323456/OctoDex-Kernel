@@ -51,7 +51,6 @@ echo -e "\e[35mApplying Build Settings\e[0m"
 export ARCH=x86_64
 export CCOMPILE=$CROSS_COMPILE
 export CROSS_COMPILE=x86_64-linux-
-export PATH=$l/home/nyks45/Linaro-TC/bin:$PATH
 
 #CONFIGS
 export SLEEP=1
@@ -64,7 +63,7 @@ export VER=$v$s
 echo -e "\e[92mVersion Number Is Setting To $v$s\e[0m"
 
 echo -e "\e[93mSetting Defconfig\e[0m"
-export DEFCONFIG=OctoDex_Kernel_defconfig
+export DEFCONFIG=cyanogenmod_zenfone2_defconfig
 echo -e "\e[94mSetting bzImage Location For OctoDex kernel By Nyks45 Of XDA\e[0m"
 export BZIMAGE=arch/x86/boot/bzImage
 echo -e "\e[36mEnviroment Setup Complete Now Moving To Compiling\e[0m"
@@ -73,7 +72,6 @@ echo -e "\e[36mEnviroment Setup Complete Now Moving To Compiling\e[0m"
 sleep 1
 sleep $SLEEP
 echo -e "\e[96mStarting Build Process\e[0m"
-export USE_CCACHE=1
 sleep $SLEEP
 if [ -f .config ];
 then
@@ -88,16 +86,7 @@ echo -e " \e[34m"
    sleep $SLEEP
 fi
 echo -e "\e[34mCompiling OctoDex Kernel\e[0m"
-make modules_prepare
-mv include/config/extra/fIrmware include/config/extra/firmware 
-mv include/config/extra/fIrmware.h include/config/extra/firmware.h
-mv include/config/extra/firmware/dIr.h include/config/extra/firmware/dir.h 
-
 make $EV -j$CPUS
-
-mv include/config/extra/firmware include/config/extra/fIrmware 
-mv include/config/extra/firmware.h include/config/extra/fIrmware.h
-mv include/config/extra/fIrmware/dir.h include/config/extra/fIrmware/dIr.h
  
 if [ -f $BZIMAGE ];
 then
