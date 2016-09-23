@@ -22,7 +22,7 @@
 #endif
 
 #define SYSTEM_SET_BRIGHTNESS 15
-static unsigned long min_brightness=3;
+static unsigned long min_brightness=2;
 
 static const char *const backlight_types[] = {
 	[BACKLIGHT_RAW] = "raw",
@@ -169,9 +169,9 @@ static ssize_t backlight_store_brightness(struct device *dev,
 			if(brightness <= 100) //leave the possibility to set the max value
 			{
 				tmp = SYSTEM_SET_BRIGHTNESS - min_brightness;
-				brightness = (brightness >= SYSTEM_SET_BRIGHTNESS ? brightness-tmp : min_brightness); //otherwise set brightness to min_brightness
+				brightness = (brightness >= SYSTEM_SET_BRIGHTNESS ? brightness-tmp : min_brightness); //otherwise "stretch" min brightness to 2%
 			}
-			//pr_debug("set brightness to %lu\n", brightness);
+			pr_debug("set brightness to %lu\n", brightness);
 			bd->props.brightness = brightness;
 			backlight_update_status(bd);
 			rc = count;
@@ -232,10 +232,10 @@ static ssize_t backlight_store_min_brightness(struct device *dev,
 
 	rc = -ENXIO;
 
-	if(m_brightness > 1 && m_brightness < 16)
+	if(m_brightness > 2 && m_brightness < 16) //for Marshmallow the lowest possible brightness is 3
 		min_brightness = m_brightness;
 	else
-		printk("Invalid min_brightness, please specify a value between 2 and 15\n");
+		printk("Invalid min_brightness, please specify a value between 3 and 15\n");
 
 	return rc;
 }
@@ -284,7 +284,7 @@ static struct device_attribute bl_device_attributes[] = {
 		     NULL),
 	__ATTR(max_brightness, 0444, backlight_show_max_brightness, NULL),
 	__ATTR(type, 0444, backlight_show_type, NULL),
-	__ATTR(min_brightness, 0444, backlight_show_min_brightness, NULL),
+	__ATTR(min_brightness, 0644, backlight_show_min_brightness, backlight_store_min_brightness),
 	__ATTR_NULL,
 };
 
