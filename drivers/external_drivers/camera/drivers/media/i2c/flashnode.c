@@ -126,17 +126,17 @@ int inline flashnode_mapping_torch_intensity_driver(int light_intensity_percenta
     if(light_intensity_percentage > 10)
         ret = FLASHNODE_TORCH_CURRENT_25MA;
     if(light_intensity_percentage > 20)
-        ret = FLASHNODE_TORCH_CURRENT_50MA;
-    if(light_intensity_percentage > 30)
         ret = FLASHNODE_TORCH_CURRENT_75MA;
-    if(light_intensity_percentage > 40)
-        ret = FLASHNODE_TORCH_CURRENT_100MA;
-    if(light_intensity_percentage > 60)
+    if(light_intensity_percentage > 30)
         ret = FLASHNODE_TORCH_CURRENT_125MA;
+    if(light_intensity_percentage > 40)
+        ret = FLASHNODE_TORCH_CURRENT_175MA;
+    if(light_intensity_percentage > 60)
+        ret = FLASHNODE_TORCH_CURRENT_200MA;
     if(light_intensity_percentage > 80)
-    	ret = FLASHNODE_TORCH_CURRENT_150MA;
+    	ret = FLASHNODE_TORCH_CURRENT_225MA;
 	if(light_intensity_percentage > 90)
-    	ret = FLASHNODE_TORCH_CURRENT_175MA;
+    	ret = FLASHNODE_TORCH_CURRENT_225MA;
     return ret;
 }
 
