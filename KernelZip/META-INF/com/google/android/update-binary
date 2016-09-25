@@ -80,5 +80,9 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.cleanup)" == 1 ]; then
 fi;
 
 umount /system;
+
+ui_print "Clearing Cache ";
+mount /cache
+rm -rf /cache
 ui_print " ";
 ui_print "Done!";
