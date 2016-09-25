@@ -35,6 +35,8 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/cpufreq_yankactive.h>
 
+static struct kobject *get_governor_parent_kobj(struct cpufreq_policy *policy);
+
 struct cpufreq_yankactive_cpuinfo {
 	struct timer_list cpu_timer;
 	struct timer_list cpu_slack_timer;
@@ -1343,7 +1345,7 @@ static int cpufreq_governor_yankactive(struct cpufreq_policy *policy,
 		if (!have_governor_per_policy())
 			common_tunables = tunables;
 
-		rc = sysfs_create_group(get_governor_parent_kobj(policy),
+		rc = sysfs_create_group((policy),
 				get_sysfs_attr());
 		if (rc) {
 			kfree(tunables);
@@ -1369,7 +1371,7 @@ static int cpufreq_governor_yankactive(struct cpufreq_policy *policy,
 				idle_notifier_unregister(&cpufreq_yankactive_idle_nb);
 			}
 
-			sysfs_remove_group(get_governor_parent_kobj(policy),
+			sysfs_remove_group((policy),
 					get_sysfs_attr());
 			kfree(tunables);
 			common_tunables = NULL;

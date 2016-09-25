@@ -34,10 +34,6 @@
 #include <linux/powersuspend.h>
 #endif
 
-#ifdef CONFIG_HAS_EARLYSUSPEND
-#include <linux/earlysuspend.h>
-#endif
-
 #include <asm/cputime.h>
 #include <linux/suspend.h>
 
@@ -1076,6 +1072,7 @@ static struct power_suspend lulzactive_power_suspend = {
 };
 #endif  /* CONFIG_POWERSUSPEND */
 
+
 static int lulzactive_pm_notifier_event(struct notifier_block *this,
 		unsigned long event, void *ptr)
 {
@@ -1180,9 +1177,6 @@ static int __init cpufreq_lulzactive_init(void)
 #ifdef CONFIG_POWERSUSPEND
 	register_power_suspend(&lulzactive_power_suspend);
 #endif
-#ifdef CONFIG_HAS_EARLYSUSPEND
-	register_early_suspend(&lulzactive_power_suspend);
-#endif
 
 	return cpufreq_register_governor(&cpufreq_gov_lulzactive);
 
@@ -1202,9 +1196,6 @@ static void __exit cpufreq_lulzactive_exit(void)
 	cpufreq_unregister_governor(&cpufreq_gov_lulzactive);
 #ifdef CONFIG_POWERSUSPEND
 	unregister_power_suspend(&lulzactive_power_suspend);
-#endif
-#ifdef CONFIG_HAS_EARLYSUSPEND
-	unregister_early_suspend(&lulzactive_power_suspend);
 #endif
 	unregister_pm_notifier(&lulzactive_pm_notifier);
 	kthread_stop(up_task);
