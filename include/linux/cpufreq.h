@@ -550,5 +550,11 @@ void set_cpufreq_boost_wifi(struct cpufreq_interactive_tunables *tunables, unsig
  *********************************************************************/
 
 void acct_update_power(struct task_struct *p, cputime_t cputime);
+enum govinuse{NONE=0,THESSJACTIVE=1,YANKACTIVE=2};
+typedef enum govinuse whichgov;
+
+extern whichgov ta_active;
+void set_cpufreq_boost_ta(unsigned int enable);
+void set_cpufreq_boost_ya(unsigned int enable);
 
 #endif /* _LINUX_CPUFREQ_H */
