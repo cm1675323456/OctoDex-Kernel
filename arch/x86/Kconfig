@@ -2496,3 +2496,9 @@ menu "Cpu Governors"
 source "drivers/cpufreq/Governors/Kconfig"
 
 endmenu
+
+menu "IO Schdulers"
+
+source "block/Kconfig.iosched"
+
+endmenu

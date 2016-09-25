@@ -111,5 +111,3 @@ config BLOCK_COMPAT
 	bool
 	depends on BLOCK && COMPAT
 	default y
-
-source block/Kconfig.iosched
