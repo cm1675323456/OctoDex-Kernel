@@ -133,6 +133,7 @@ struct cpufreq_thessjactive_tunables {
 
 /* For cases where we have single governor instance for system */
 static struct cpufreq_thessjactive_tunables *common_tunables;
+static struct kobject *get_governor_parent_kobj(struct cpufreq_policy *policy);
 static struct attribute_group *get_sysfs_attr(void);
 
 extern whichgov ta_active;
@@ -1387,7 +1388,7 @@ static int cpufreq_governor_thessjactive(struct cpufreq_policy *policy,
 		if (!have_governor_per_policy())
 			common_tunables = tunables;
 
-		rc = sysfs_create_group(get_governor_parent_kobj(policy),
+		rc = sysfs_create_group((policy),
 				get_sysfs_attr());
 		if (rc) {
 			kfree(tunables);
@@ -1415,7 +1416,7 @@ static int cpufreq_governor_thessjactive(struct cpufreq_policy *policy,
 				unregister_early_suspend(&hotplug_auxcpus_desc);
 			}
 
-			sysfs_remove_group(get_governor_parent_kobj(policy),
+			sysfs_remove_group((policy),
 					get_sysfs_attr());
 			kfree(tunables);
 			common_tunables = NULL;
