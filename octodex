@@ -53,6 +53,17 @@ export CCOMPILE=$CROSS_COMPILE
 export CROSS_COMPILE=x86_64-linux-android-
 
 #CONFIGS
+echo -e " \e[34m"
+read -r -p "Do You Want To Use OctoDex Modified Defconfig? [Y/n] " response
+echo -e " \e[34m"
+case $response in
+    [Yy][Ee][Ss]|[Yy]) 
+        ;;
+    *)
+        cp KernelZip/KernelConfig .config
+        ;;
+esac
+echo -e " \e[34m"
 export SLEEP=1
 echo -e "\e[36mSetting CPU Cores/Threads\e[0m"
 export CPUS=`nproc`
