@@ -30,6 +30,8 @@ modules.builtin
 *.lzo
 *.patch
 *.gcno
+*.zip
+*.bin
 
 #
 # Top-level generic files
